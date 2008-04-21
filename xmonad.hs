@@ -59,6 +59,7 @@ searchMap method = M.fromList $
 
 main = xmonad defaultConfig
               { manageHook = manageDocks <+> manageHook defaultConfig
+              , terminal   = "gnome-terminal"
               , logHook    = ewmhDesktopsLogHook
               , modMask    = mod4Mask
               , layoutHook = myLayouts
