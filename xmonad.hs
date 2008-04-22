@@ -55,11 +55,13 @@ searchMap method = M.fromList $
                    ]
 
 
+myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=14'"
+
 -- Do it
 
 main = xmonad defaultConfig
               { manageHook = manageDocks <+> manageHook defaultConfig
-              , terminal   = "gnome-terminal"
+              , terminal   = myTerminal
               , logHook    = ewmhDesktopsLogHook
               , modMask    = mod3Mask
               , layoutHook = myLayouts
