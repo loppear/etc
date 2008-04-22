@@ -23,7 +23,7 @@ layoutDev = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
 layoutComm = avoidStruts $ tiled ||| Mirror tiled ||| Full
     where
-      tiled = Tall 2 (3/100) (1/3)
+      tiled = Tall 1 (3/100) (2/3)
 
 myLayouts = onWorkspace "dev" layoutDev
             $ onWorkspace "comm" layoutComm
