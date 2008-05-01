@@ -36,7 +36,7 @@ myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys (XConfig {modMask = modm}) =
     M.fromList $
          [ ((modm,                 xK_x), shellPrompt defaultXPConfig)
-           
+         , ((modm,                 xK_c), kill)
            -- Search keys
          , ((modm,                 xK_s), submap $ searchMap $ promptSearch defaultXPConfig)
          , ((modm .|. shiftMask,   xK_s), submap $ searchMap $ selectSearch)
