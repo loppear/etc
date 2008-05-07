@@ -1,13 +1,16 @@
 (server-start)
 (global-auto-revert-mode)
 
+(add-to-list 'load-path "~/.emacs-extras")
+
 (require 'color-theme)
 (color-theme-charcoal-black)
 
-(add-to-list 'load-path "~/.emacs-extras")
-(require 'ipython)
+; (require 'ipython)
 (require 'show-wspace)
 
+(require 'ido)
+(ido-mode t)
 
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
