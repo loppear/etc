@@ -39,3 +39,8 @@
  '(show-ws-tab ((t (:background "DarkGreen"))))
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
+
+;; h/t Augie
+;;(add-hook 'before-save-hook '(lambda ()
+;;                                (whitespace-cleanup)))
+(setq require-final-newline t)
