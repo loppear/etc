@@ -1,0 +1,10 @@
+syntax: glob
+*~
+*.pyc
+.*project
+*.egg-info
+build
+dist
+
+syntax: regexp
+.*\#.*\#$
