@@ -12,30 +12,48 @@
 (require 'ido)
 (ido-mode t)
 
+;; Document modes
+(require 'rst)
+
+(setq auto-mode-alist
+      (append '(("\\.txt$" . rst-mode)
+                ("\\.rst$" . rst-mode)
+                ("\\.rest$" . rst-mode)) auto-mode-alist))
+(add-hook 'rst-adjust-hook 'rst-toc-update)
+
+;; Random
+
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
+(setq frame-background-mode 'dark)
 
 ;; http://shreevatsa.wordpress.com/2007/01/06/using-emacsclient/
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
+;; No splash screen!
+(setq inhibit-splash-screen t)
 
+;; Disable tool-bar
+(tool-bar-mode -1)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
- '(tabbar-mode t nil (tabbar))
+ '(tabbar-mode t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :family "apple-monaco"))))
  '(show-ws-tab ((t (:background "DarkGreen"))))
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
