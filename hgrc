@@ -3,3 +3,7 @@ username = Luke Opperman <luke@loppear.com>
 
 [defaults]
 log = -v -l 6
+
+[extensions]
+hgext.mq =
+
