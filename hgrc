@@ -6,4 +6,5 @@ log = -v -l 6
 
 [extensions]
 hgext.mq =
-
+hgext.rebase =
+svn = /Users/luke/lib/hgsubversion/wc
