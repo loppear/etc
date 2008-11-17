@@ -4,7 +4,16 @@ username = Luke Opperman <luke@loppear.com>
 [defaults]
 log = -v -l 6
 
+[diff]
+git=1
+
 [extensions]
+hgext.parentrevspec =
 hgext.mq =
 hgext.rebase =
 svn = /Users/luke/lib/hgsubversion/wc
+
+[merge-tools]
+filemerge.executable=/Developer/Applications/Utilities/FileMerge.app/Contents/MacOS/FileMerge
+filemerge.args=-left $other -right $local -ancestor $base -merge $output
+filemerge.gui=True
