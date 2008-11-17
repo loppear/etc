@@ -15,7 +15,7 @@
 
 
 ;; http://www.emacswiki.org/cgi-bin/wiki/TabCompletion
-(global-set-key [(tab)] 'smart-tab)
+;; (global-set-key [(tab)] 'smart-tab)
 (defun smart-tab ()
   "This smart tab is minibuffer compliant: it acts as usual in
     the minibuffer. Else, if mark is active, indents region. Else if
