@@ -8,6 +8,7 @@ log = -v -l 6
 git=1
 
 [extensions]
+transplant = 
 hgext.parentrevspec =
 hgext.mq =
 hgext.rebase =
