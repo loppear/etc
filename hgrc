@@ -2,7 +2,8 @@
 username = Luke Opperman <luke@loppear.com>
 
 [defaults]
-log = -v -l 6
+log = -l 6
+glog = -l 6
 
 [diff]
 git=1
@@ -12,6 +13,7 @@ transplant =
 hgext.parentrevspec =
 hgext.mq =
 hgext.rebase =
+hgext.graphlog = 
 svn = /Users/luke/lib/hgsubversion/wc
 
 [merge-tools]

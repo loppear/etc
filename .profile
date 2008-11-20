@@ -53,6 +53,7 @@ alias hgserve='hg serve -p 7777 --style=gitweb --pid-file ~/.hgpid -d'
 alias hgcleanup='hg st| grep "[orig|rej]$" | sed "s/\? \(.*\)/\1/"'
 
 export PS1="[\u@\h:\w]\n$ "
+export EDITOR="emacsclient"
 
 export PATH
 export PYTHONPATH
