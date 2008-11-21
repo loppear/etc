@@ -1,0 +1,31 @@
+
+svnurlof () {
+       local url
+       url=`svn info $1 2> /dev/null | grep '^URL: ' | sed 's/URL: //'`
+       if [ x"$url" = "x" ]
+       then
+               url=`git svn info $1 2> /dev/null | grep '^URL: ' | sed 's/URL: //'`
+       fi
+       local root
+       root=$(cd $1 ; hg root 2> /dev/null)
+       if [ x$root != 'x' ]
+       then
+               if [ -e "$root/.hg/svn/url" ]
+               then
+                       url=`cat "$root/.hg/svn/url"`
+                       local branch
+                       branch=$(cd $1 ; hg branch)
+                       if [ "$branch" != "default" ]
+                       then
+                               url=$url/branches/$branch
+                       else
+                               url=$url/trunk
+                       fi
+               fi
+       fi
+       if [ x"$url" = "x" ]
+       then
+               echo -n 'No repo found (tried svn, git-svn, hgsvnclient)'
+       fi
+       echo $url
+}

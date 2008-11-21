@@ -1,0 +1,4 @@
+
+alias hgserve='hg serve -p 7777 --style=gitweb --pid-file ~/.hgpid -d'
+alias hgcleanup='hg st| grep "[orig|rej]$" | sed "s/\? \(.*\)/\1/"'
+

@@ -1,0 +1,4 @@
+
+alias sz="eazysvn"
+alias pg_ctl="sudo -u postgres pg_ctl -D $PGDATA"
+alias post-review="post-review.py --target-groups=CSMP -o"
