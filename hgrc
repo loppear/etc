@@ -9,6 +9,8 @@ glog = -l 6
 git=1
 
 [extensions]
+hgext.purge = 
+hgext.record = 
 transplant = 
 hgext.parentrevspec =
 hgext.mq =
