@@ -2,8 +2,7 @@
 username = Luke Opperman <luke@loppear.com>
 
 [defaults]
-log = -l 6
-glog = -l 6
+log = -l 6 --graph
 
 [diff]
 git=1
