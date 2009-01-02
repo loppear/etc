@@ -8,6 +8,9 @@
 
 ; (require 'ipython)
 (require 'show-wspace)
+(require 'textmate)
+(textmate-mode)
+(textmate-also-ignore "eggs|cover|daisy|.*.pyc")
 
 (require 'ido)
 (ido-mode t)
@@ -80,6 +83,10 @@
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
 ;; h/t Augie
-;;(add-hook 'before-save-hook '(lambda ()
-;;                                (whitespace-cleanup)))
+(add-hook 'before-save-hook '(lambda ()
+                                (whitespace-cleanup)))
 (setq require-final-newline t)
+
+;; Keybindings
+(global-set-key [(meta t)] 'textmate-goto-file)
+(global-set-key [(meta z)] 'textmate-find-in-project-type)
