@@ -5,11 +5,13 @@ username = Luke Opperman <luke@loppear.com>
 log = -l 6 --graph
 outgoing = --graph
 incoming = --graph
+diff = -p
 
 [diff]
 git=1
 
 [extensions]
+hgext.color =
 hgext.purge = 
 hgext.record = 
 transplant = 
