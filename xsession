@@ -1,0 +1,14 @@
+xrdb -merge .Xresources
+
+xmodmap -e "clear Mod3"
+xmodmap -e "keycode 66 = Control_L"
+xmodmap -e "keycode 133 = Caps_Lock"
+xmodmap -e "remove Lock = Caps_Lock"
+xmodmap -e "add Control = Control_L"
+xmodmap -e "add Mod3 = Caps_Lock"
+xmodmap -e "add Mod3 = Alt_R"
+
+gnome-panel &
+nm-applet &
+
+xmonad
