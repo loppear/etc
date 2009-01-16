@@ -10,7 +10,7 @@ import XMonad.Prompt (defaultXPConfig)
 import XMonad.Actions.Submap (submap)
 import XMonad.Actions.Search (google, wikipedia,
                               promptSearch, selectSearch,
-                              simpleEngine)
+                              searchEngine)
 
 import Data.Map as M (M.fromList, M.union, Map())
 
@@ -22,30 +22,45 @@ myWorkspaces = ["dev", "comm"] ++ map show [3..6]
 layoutDev = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
 layoutComm = avoidStruts $ tiled ||| Mirror tiled ||| Full
-    where
-      tiled = Tall 1 (3/100) (2/3)
+  where
+     -- default tiling algorithm partitions the screen into two panes
+     tiled   = Tall nmaster delta ratio
 
-myLayouts = onWorkspace "dev" layoutDev
+     -- The default number of windows in the master pane
+     nmaster = 1
+
+     -- Default proportion of screen occupied by master pane
+     ratio   = 1/2
+
+     -- Percent of screen to increment by when resizing panes
+     delta   = 3/100
+
+
+myLayouts = onWorkspace "dev" layoutComm
             $ onWorkspace "comm" layoutComm
+            $ onWorkspace "" layoutComm
             $ avoidStruts (layoutHook defaultConfig)
 
 
 -- Keys
 
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
-myKeys (XConfig {modMask = modm}) =
+myKeys conf@(XConfig {modMask = modm}) =
     M.fromList $
-         [ ((modm,                 xK_x), shellPrompt defaultXPConfig)
-         , ((modm,                 xK_c), kill)
+         [ ((modm,                 xK_space), shellPrompt defaultXPConfig)
+         , ((modm .|. shiftMask,   xK_space ), sendMessage NextLayout)
+         , ((modm .|. shiftMask,   xK_c), kill)
+
+         , ((modm,                  xK_Return), spawn $ XMonad.terminal conf)
            -- Search keys
-         , ((modm,                 xK_s), submap $ searchMap $ promptSearch defaultXPConfig)
-         , ((modm .|. shiftMask,   xK_s), submap $ searchMap $ selectSearch)
+--         , ((modm,                 xK_s), submap $ searchMap $ promptSearch defaultXPConfig)
+--         , ((modm .|. shiftMask,   xK_s), submap $ searchMap $ selectSearch)
          ]
 
 
 -- Search
 
-pythondoc = simpleEngine "http://www.google.com/search?domains=docs.python.org&sitesearch=docs.python.org&sourceid=google-search&submit=submit&q="
+pythondoc = searchEngine "pythondoc" "http://www.google.com/search?domains=docs.python.org&sitesearch=docs.python.org&sourceid=google-search&submit=submit&q="
 
 
 searchMap method = M.fromList $
@@ -55,7 +70,7 @@ searchMap method = M.fromList $
                    ]
 
 
-myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=14'"
+myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=12'"
 
 -- Do it
 
@@ -68,4 +83,3 @@ main = xmonad defaultConfig
               , workspaces = myWorkspaces
               , keys = \c -> myKeys c `M.union` keys defaultConfig c
               }
-
