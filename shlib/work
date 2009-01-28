@@ -2,3 +2,12 @@
 alias sz="eazysvn"
 alias pg_ctl="sudo -u postgres pg_ctl -D $PGDATA"
 alias post-review="post-review.py --target-groups=CSMP -o"
+
+spawn_django () {
+       if [ -e ./eggs/bin/python ]
+       then
+               eggs/bin/python `which spawn` --factory=spawning.django_factory.config_factory $@
+       else
+               `which spawn` --factory=spawning.django_factory.config_factory $@
+       fi
+}
