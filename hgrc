@@ -2,7 +2,7 @@
 username = Luke Opperman <luke@loppear.com>
 
 [defaults]
-log = -l 6 --graph
+log = -l 9 --graph
 outgoing = --graph
 incoming = --graph
 diff = -p
@@ -12,13 +12,13 @@ git=1
 
 [extensions]
 hgext.color =
-hgext.purge = 
-hgext.record = 
-transplant = 
+hgext.purge =
+hgext.record =
+transplant =
 hgext.parentrevspec =
 hgext.mq =
 hgext.rebase =
-hgext.graphlog = 
+hgext.graphlog =
 svn = /Users/luke/lib/hgsubversion/wc
 
 [merge-tools]
