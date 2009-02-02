@@ -17,11 +17,11 @@ import Data.Map as M (M.fromList, M.union, Map())
 
 -- Layouts
 
-myWorkspaces = ["dev", "comm"] ++ map show [3..6]
+myWorkspaces = ["dev", "net", "web", "music", "comm", "spare" ] -- ++ map show [3..6]
 
-layoutDev = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
+layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
-layoutComm = avoidStruts $ tiled ||| Mirror tiled ||| Full
+layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -36,9 +36,9 @@ layoutComm = avoidStruts $ tiled ||| Mirror tiled ||| Full
      delta   = 3/100
 
 
-myLayouts = onWorkspace "dev" layoutComm
+myLayouts = onWorkspace "dev" layoutDev
             $ onWorkspace "comm" layoutComm
-            $ onWorkspace "" layoutComm
+            $ onWorkspace "net" layoutDev
             $ avoidStruts (layoutHook defaultConfig)
 
 
