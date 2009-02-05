@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Config.Gnome
 
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.PerWorkspace
@@ -51,10 +52,9 @@ myKeys conf@(XConfig {modMask = modm}) =
          , ((modm .|. shiftMask,   xK_space ), sendMessage NextLayout)
          , ((modm .|. shiftMask,   xK_c), kill)
 
-         , ((modm,                  xK_Return), spawn $ XMonad.terminal conf)
+         , ((modm .|. shiftMask,   xK_Return), spawn $ XMonad.terminal conf)
            -- Search keys
---         , ((modm,                 xK_s), submap $ searchMap $ promptSearch defaultXPConfig)
---         , ((modm .|. shiftMask,   xK_s), submap $ searchMap $ selectSearch)
+--         , ((modm,                 xK_s), selectSearch defaultXPConfig)
          ]
 
 
@@ -70,16 +70,16 @@ searchMap method = M.fromList $
                    ]
 
 
-myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=12'"
+myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=11'"
 
 -- Do it
 
-main = xmonad defaultConfig
-              { manageHook = manageDocks <+> manageHook defaultConfig
+main = xmonad gnomeConfig
+              { manageHook = manageDocks <+> manageHook gnomeConfig
               , terminal   = myTerminal
               , logHook    = ewmhDesktopsLogHook
               , modMask    = mod3Mask
               , layoutHook = myLayouts
               , workspaces = myWorkspaces
-              , keys = \c -> myKeys c `M.union` keys defaultConfig c
+              , keys = \c -> myKeys c `M.union` keys gnomeConfig c
               }
