@@ -1,3 +1,13 @@
+// Include
+load_paths = [
+           "chrome://conkeror/content/",
+           "file:///home/luke/etc/conkeror-extras/"];
+
+require("page-modes/gmail.js");
+require("page-modes/google-search-results.js");
+
+require("browserhistory.js");
+
 // Keys
 
 define_key(content_buffer_normal_keymap, "D", "follow-new-buffer");
