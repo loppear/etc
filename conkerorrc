@@ -19,3 +19,7 @@ define_webjump("jira",
 
 
 // Modes
+
+google_search_bind_number_shortcuts();
+
+xkcd_add_title = true;
