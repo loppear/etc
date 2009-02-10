@@ -8,6 +8,7 @@ import XMonad.Layout.PerWorkspace
 
 import XMonad.Prompt.Shell (shellPrompt, prompt, safePrompt)
 import XMonad.Prompt (defaultXPConfig)
+import XMonad.Actions.Plane
 import XMonad.Actions.Submap (submap)
 import XMonad.Actions.Search (google, wikipedia,
                               promptSearch, selectSearch,
@@ -24,7 +25,6 @@ layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
 layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
-     -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
 
      -- The default number of windows in the master pane
@@ -55,7 +55,15 @@ myKeys conf@(XConfig {modMask = modm}) =
          , ((modm .|. shiftMask,   xK_Return), spawn $ XMonad.terminal conf)
            -- Search keys
 --         , ((modm,                 xK_s), selectSearch defaultXPConfig)
-         ]
+
+           -- Conkeror workaround, see http://conkeror.org/UpstreamBugs#FocusedpluginspreventConkerorkeybindingsfromworking
+         , ((modm .|. shiftMask,  xK_f), spawn "conkeror -f unfocus")
+        ]
+           -- Plane
+        ++  [((keyMask .|. modm, keySym), function (Lines 3) Finite direction) |
+             (keySym, direction) <- zip [xK_Left .. xK_Down] $ enumFrom ToLeft
+           , (keyMask, function) <- [(0, planeMove), (shiftMask, planeShift)]
+           ]
 
 
 -- Search
@@ -68,7 +76,6 @@ searchMap method = M.fromList $
                    , ((0, xK_p), method "firefox" pythondoc)
                    , ((0, xK_w), method "firefox" wikipedia)
                    ]
-
 
 myTerminal = "urxvt -tr -tint grey -sh 40 -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=11'"
 
