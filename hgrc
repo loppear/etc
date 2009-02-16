@@ -1,5 +1,6 @@
 [ui]
 username = Luke Opperman <luke@loppear.com>
+merge=meld
 
 [defaults]
 log = -l 3 --graph
@@ -20,7 +21,3 @@ hgext.mq =
 hgext.rebase =
 hgext.graphlog =
 svn = /Users/luke/lib/hgsubversion/wc
-
-[merge-tools]
-filemerge.executable=/usr/bin/meld
-filemerge.gui=True

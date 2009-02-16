@@ -8,8 +8,7 @@ function command_advice(command, func)
     "after": after_advice,
     "around": around_advice
   }[arguments.$type || "before"];
-  dumpln(wrapper);
-  var wrapped = wrapper(func, get_handler(command));
+   var wrapped = wrapper(func, get_handler(command));
   set_handler(command, wrapped);
 }
 
