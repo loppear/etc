@@ -1,0 +1,39 @@
+- Find current blank
+find about:blank
+change to http://www.google.com/
+
+- Find current open
+find http://www.google.com/
+change to http://www.engadget.com/
+
+- Find new
+find http://www.engadget.com/
+change to http://www.google.com/
+
+- Follow current
+follow http://www.engadget.com/
+change to http://www.engadget.com/2009/02/16/lenovo-constant-connect-brings-blackberry-email-to-thinkpads-aut/
+
+- Follow new
+follow http://www.engadget.com/2009/02/16/lenovo-constant-connect-brings-blackberry-email-to-thinkpads-aut/
+change to http://www.engadget.com/tag/ExpressCard/
+
+- Follow new background
+
+
+--------
+
+- Find current blank
+open to about:blank
+find about:blank
+change to http://www.google.com/
+
+- Find current open
+
+- Find new
+
+- Follow current
+
+- Follow new
+
+- Follow new background
