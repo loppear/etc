@@ -3,7 +3,7 @@ username = Luke Opperman <luke@loppear.com>
 merge=meld
 
 [defaults]
-log = -l 3 --graph
+log = -l 7 --graph --style compact
 outgoing = --graph
 incoming = --graph
 diff = -p
