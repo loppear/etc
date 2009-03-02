@@ -1,2 +1,4 @@
 alias hgserve='kill `cat ~/.hgpid`; sleep 1; hg serve --webdir-conf ~/etc/hgwebdir.conf -p 7777 --style=gitweb --pid-file ~/.hgpid -d --config web.contact=- --config web.description=-'
 alias hgcleanup='hg st| grep "[orig|rej]$" | sed "s/\? \(.*\)/\1/"'
+
+alias hgrebaseall="for b in `hg llog -u 'Luke Opperman <luke@loppear.com>' --template '{branches}\n' | sort | uniq` ; do hg co $b && hg svn rebase ; done"

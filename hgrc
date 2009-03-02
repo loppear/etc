@@ -7,11 +7,17 @@ log = -l 7 --graph --style compact
 outgoing = --graph
 incoming = --graph
 diff = -p
+branches = -a
+
+[alias]
+llog=log
+allbranches=branches
 
 [diff]
 git=1
 
 [extensions]
+hgext.alias =
 hgext.color =
 hgext.purge =
 hgext.record =
