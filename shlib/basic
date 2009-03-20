@@ -3,3 +3,9 @@ export EDITOR="emacsclient"
 
 alias e="emacsclient -n"
 alias ls="ls -h"
+
+act () {
+    cd ~/projects/$1/hg
+    . ../bin/activate
+    export PATH=$PATH:$VIRTUAL_ENV/hg/eggs/bin/
+}

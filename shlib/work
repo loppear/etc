@@ -1,7 +1,7 @@
-
 alias sz="eazysvn"
 alias pg_ctl="sudo -u postgres pg_ctl -D $PGDATA"
 alias post-review="post-review.py --target-groups=CSMP -o"
+alias lfo_setup="python setup.py install_project --dev --with-tests"
 
 spawn_django () {
        if [ -e ./eggs/bin/python ]
