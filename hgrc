@@ -1,6 +1,7 @@
 [ui]
 username = Luke Opperman <luke@loppear.com>
 merge=meld
+ignore = ~/etc/hgglobalignore
 
 [defaults]
 log = -l 7 --graph --style compact
@@ -27,3 +28,4 @@ hgext.mq =
 hgext.rebase =
 hgext.graphlog =
 svn = /Users/luke/lib/hgsubversion/wc
+nearest = /Users/luke/lib/hgnearest/nearest/nearest.py
