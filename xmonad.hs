@@ -1,6 +1,8 @@
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.SetWMName
 import XMonad.Config.Gnome
 
 import XMonad.Layout.ThreeColumns
@@ -84,8 +86,11 @@ myTerminal = "urxvt -tr -tint grey -sh 40 +sb -rv -fn 'xft:Bitstream Vera Sans M
 main = xmonad gnomeConfig
               { manageHook = manageDocks <+> manageHook gnomeConfig
               , terminal   = myTerminal
-              , logHook    = ewmhDesktopsLogHook
-              , modMask    = mod3Mask
+              , logHook    = dynamicLogWithPP defaultPP
+                             >> ewmhDesktopsLogHook
+                             >> setWMName "LG3D"
+
+              , modMask    = mod4Mask
               , layoutHook = myLayouts
               , workspaces = myWorkspaces
               , keys = \c -> myKeys c `M.union` keys gnomeConfig c
