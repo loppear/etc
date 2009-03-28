@@ -8,6 +8,10 @@ require("page-modes/google-search-results.js");
 
 require("browserhistory.js");
 
+// Browser History
+
+bh_log_file = "/tmp/bhistory.log"
+
 // Keys
 
 define_key(content_buffer_normal_keymap, "D", "follow-new-buffer");

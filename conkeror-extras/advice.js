@@ -1,3 +1,8 @@
+// Utility that should probably be in modules/interactive.js
+function get_handler (name) {
+    return interactive_commands.get(name).handler;
+}
+
 
 define_keywords("$type");
 function command_advice(command, func)
