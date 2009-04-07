@@ -29,3 +29,4 @@ hgext.rebase =
 hgext.graphlog =
 svn = /Users/luke/lib/hgsubversion/wc
 nearest = /Users/luke/lib/hgnearest/nearest/nearest.py
+histedit = /Users/luke/lib/hghistedit/hg
