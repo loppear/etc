@@ -20,3 +20,9 @@ function hg-svn-merge-branch() {
     hg diff -r$targetrev:$striprev | hg import - -m "Merged branch $1."
     hg strip $striprev
 }
+
+function hg-amend-tip() {
+    hg qimp -rtip
+    hg qref
+    hg qfin -a
+}
