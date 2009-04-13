@@ -1,6 +1,6 @@
 xrdb -merge ~/.Xresources
 
-xmodmap -e "keycode 135 = Pointer_Button2"
-xkbset m
+(sleep 8 && xmodmap ~/etc/Xmodmap) &
+(sleep 9 && xkbset m) &
 
 . ~/etc/shlib/xmonad-startup
