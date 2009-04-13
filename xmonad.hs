@@ -5,6 +5,8 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 import XMonad.Config.Gnome
 
+import qualified XMonad.StackSet as W
+
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.PerWorkspace
 
@@ -60,12 +62,21 @@ myKeys conf@(XConfig {modMask = modm}) =
 
            -- Conkeror workaround, see http://conkeror.org/UpstreamBugs#FocusedpluginspreventConkerorkeybindingsfromworking
          , ((modm .|. shiftMask,  xK_f), spawn "conkeror -f unfocus")
-        ]
+         ]
            -- Plane
-        ++  [((keyMask .|. modm, keySym), function (Lines 3) Finite direction) |
+        ++ [ ((keyMask .|. modm, keySym), function (Lines 3) Finite direction) |
              (keySym, direction) <- zip [xK_Left .. xK_Down] $ enumFrom ToLeft
            , (keyMask, function) <- [(0, planeMove), (shiftMask, planeShift)]
            ]
+
+           -- Swap these to make sense
+        ++ [
+           -- Move focus to the next window
+             ((modm,               xK_k     ), windows W.focusDown)
+           -- Move focus to the previous window
+           , ((modm,               xK_j     ), windows W.focusUp  )
+           ]
+
 
 
 -- Search
