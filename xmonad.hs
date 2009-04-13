@@ -21,7 +21,7 @@ import Data.Map as M (M.fromList, M.union, Map())
 
 -- Layouts
 
-myWorkspaces = ["dev", "net", "web", "music", "comm", "spare" ] -- ++ map show [3..6]
+myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare" ] -- ++ map show [3..6]
 
 layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
