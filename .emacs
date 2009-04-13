@@ -17,6 +17,9 @@
 (textmate-mode)
 (textmate-also-ignore "eggs|cover|daisy|.*.pyc")
 
+(require 'nose)
+(add-to-list 'nose-project-names "eggs/bin/test")
+
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
