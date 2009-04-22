@@ -1,0 +1,1 @@
+/home/luke/lib/durin42-dotfiles/.elisp/diff-mode-.el
