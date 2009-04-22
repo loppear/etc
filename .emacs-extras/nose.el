@@ -1,0 +1,1 @@
+/home/luke/lib/nosemacs/nose.el

@@ -18,7 +18,17 @@
 (textmate-also-ignore "eggs|cover|daisy|.*.pyc")
 
 (require 'nose)
+(setq nose-use-verbose nil)
 (add-to-list 'nose-project-names "eggs/bin/test")
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key "\C-ca" 'nosetests-all)
+            (local-set-key "\C-cm" 'nosetests-module)
+            (local-set-key "\C-c." 'nosetests-one)))
+
+(defun pyflakes-this-buffer ()
+  (interactive)
+  (compilation-start (concat "pyflakes " buffer-file-name) nil (lambda (mode) "*pyflakes*")))
 
 (require 'ido)
 (ido-mode t)
