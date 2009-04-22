@@ -34,6 +34,7 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
+(require 'mercurial)
 
 ;; http://www.emacswiki.org/cgi-bin/wiki/TabCompletion
 ;; (global-set-key [(tab)] 'smart-tab)
@@ -83,6 +84,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(hg-log-limit 30)
+ '(hg-outgoing-repository "default")
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
