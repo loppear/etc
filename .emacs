@@ -108,3 +108,4 @@ point."
 ;; Keybindings
 (global-set-key [(meta t)] 'textmate-goto-file)
 (global-set-key [(meta z)] 'textmate-find-in-project-type)
+(global-set-key [(control q)] 'kill-this-buffer)
