@@ -4,15 +4,10 @@ merge=meld
 ignore = ~/etc/hgglobalignore
 
 [defaults]
-log = -l 7 --graph --style compact
-outgoing = --graph
-incoming = --graph
 diff = -p
-branches = -a
 
 [alias]
-llog=log
-allbranches=branches
+ll=log -l 7 --graph --style compact
 
 [diff]
 git=1
