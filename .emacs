@@ -82,7 +82,8 @@ point."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(hg-log-limit 30)
- '(hg-outgoing-repository "default")
+ '(hg-outgoing-repository "")
+ '(hg-incoming-repository "")
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)

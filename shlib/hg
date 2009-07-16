@@ -2,7 +2,7 @@ alias hgserve='kill `cat ~/.hgpid`; sleep 1; hg serve --webdir-conf ~/etc/hgwebd
 alias hgcleanup='hg st| grep "[orig|rej]$" | sed "s/\? \(.*\)/\1/"'
 
 function hg-rebase-all () {
-  for b in `hg llog -u 'Luke Opperman <luke@loppear.com>' --template '{branches}\n' | sort | uniq`
+  for b in `hg log -u 'Luke Opperman <luke@loppear.com>' --template '{branches}\n' | sort | uniq`
   do
     hg co $b && hg rebase --svn || return
   done
