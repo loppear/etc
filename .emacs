@@ -106,7 +106,52 @@ point."
                                 (whitespace-cleanup)))
 (setq require-final-newline t)
 
+
+;; Modified from Steve Yegge
+(defun lop-swap-window ()
+  "Swap the first and next windows' buffers" (interactive)
+  (let* ((w1 (first (window-list)))
+        (w2 (next-window)))
+    (lop-swap-windows (w1 w2))))
+
+(defun lop-swap-window-to-first ()
+  "Swap the first and current windows' buffers" (interactive)
+  (let* ((w1 (window-at 0 0))
+         (w2 (first (window-list))))
+    (lop-swap-windows w1 w2)
+    (select-window w1)))
+
+(defun lop-swap-windows (w1 w2)
+  (let* ((b1 (window-buffer w1))
+         (b2 (window-buffer w2))
+         (s1 (window-start w1))
+         (s2 (window-start w2)))
+    (set-window-buffer w1 b2)
+    (set-window-buffer w2 b1)
+    (set-window-start w1 s2)
+    (set-window-start w2 s1)
+    ))
+
+
+
+;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
+(defun toggle-window-dedicated ()
+  "Toggle whether the current active window is dedicated or not"
+  (interactive)
+  (message
+   (if (let (window (get-buffer-window (current-buffer)))
+         (set-window-dedicated-p window
+                                 (not (window-dedicated-p window))))
+       "Window '%s' is dedicated"
+     "Window '%s' is normal")
+   (current-buffer)))
+
+
 ;; Keybindings
 (global-set-key [(meta t)] 'textmate-goto-file)
 (global-set-key [(meta z)] 'textmate-find-in-project-type)
 (global-set-key [(control q)] 'kill-this-buffer)
+(global-set-key [(meta j)] 'lop-swap-window-to-first)
+(global-set-key [(meta shift j)] 'lop-swap-window)
+(global-set-key [pause] 'toggle-window-dedicated)
+(global-set-key "\C-m" 'indent-new-comment-line)
