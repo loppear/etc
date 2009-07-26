@@ -132,6 +132,27 @@ point."
     (set-window-start w2 s1)
     ))
 
+;; http://www.emacswiki.org/emacs/WindowNavigation
+(defun ido-jump-to-window ()
+  (interactive)
+  (let* ((swap (lambda (l)
+                 (if (cdr l)
+                     (cons (cadr l) (cons (car l) (cddr l)))
+                   l)))
+         ;; Swaps the current buffer name with the next one along.
+         (visible-buffers (swap (mapcar '(lambda (window) (buffer-name (window-buffer window))) (window-list))))
+         (buffer-name (ido-completing-read "Window: " visible-buffers))
+         window-of-buffer)
+    (if (not (member buffer-name visible-buffers))
+        (error "'%s' does not have a visible window" buffer-name)
+      (setq window-of-buffer
+                (delq nil (mapcar '(lambda (window)
+                                       (if (equal buffer-name (buffer-name (window-buffer window)))
+                                           window
+                                         nil))
+                                  (window-list))))
+      (select-window (car window-of-buffer)))))
+
 
 
 ;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
