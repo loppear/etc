@@ -18,7 +18,7 @@ act () {
 }
 
 activate-virtualenv () {
-    deactivate
+    if-exists deactivate
     workon="$1"
     found=0
     for subpath in $workon/hg $workon/wc $workon;
@@ -34,7 +34,7 @@ activate-virtualenv () {
         return 1
     fi
 
-    . ../bin/activate
+    . $workon/bin/activate
 
     if [ -d $workon/hg/eggs/bin ]
     then
@@ -45,10 +45,9 @@ activate-virtualenv () {
 mkact () {
     virtualenv $1 || return 1
     cd $1
-    . bin/activate
     if [ $2 ]
     then
         hg clone $2 hg
-        cd $2
     fi
+    activate-virtualenv `pwd`
 }

@@ -4,3 +4,11 @@ export EDITOR="emacsclient"
 alias e="emacsclient -n"
 alias ls="ls -h"
 
+# via http://stackoverflow.com/questions/85880/determine-if-a-function-exists-in-bash
+if-exists () {
+    type $1 >/dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+        $1
+    fi
+}
