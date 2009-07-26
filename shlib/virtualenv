@@ -41,3 +41,14 @@ activate-virtualenv () {
         export PATH=$PATH:$VIRTUAL_ENV/hg/eggs/bin/
     fi
 }
+
+mkact () {
+    virtualenv $1 || return 1
+    cd $1
+    . bin/activate
+    if [ $2 ]
+    then
+        hg clone $2 hg
+        cd $2
+    fi
+}
