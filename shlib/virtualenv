@@ -1,0 +1,43 @@
+export WORKON_HOME=~/projects
+export LIB_HOME=~/lib
+
+act () {
+    for home in $WORKON_HOME $LIB_HOME;
+    do
+        if [ -d $home/$1 ]
+        then
+
+            activate-virtualenv $home/$1
+
+            if [ $? ]
+            then
+                break
+            fi
+        fi
+    done
+}
+
+activate-virtualenv () {
+    deactivate
+    workon="$1"
+    found=0
+    for subpath in $workon/hg $workon/wc $workon;
+    do
+        if [ -d $subpath ]
+        then
+           cd $subpath
+           break
+        fi
+    done
+    if [ ! found ]
+    then
+        return 1
+    fi
+
+    . ../bin/activate
+
+    if [ -d $workon/hg/eggs/bin ]
+    then
+        export PATH=$PATH:$VIRTUAL_ENV/hg/eggs/bin/
+    fi
+}
