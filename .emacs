@@ -22,6 +22,7 @@
 (require 'nose)
 (setq nose-use-verbose nil)
 (add-to-list 'nose-project-names "eggs/bin/test")
+(add-to-list 'nose-project-names "../bin/nosetests")
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key "\C-ca" 'nosetests-all)
