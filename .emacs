@@ -39,6 +39,10 @@
 
 (require 'mercurial)
 
+
+(require 'confluence)
+(require 'jira)
+
 ; use tab for indent or complete
 (defun indent-or-expand (arg)
   "Either indent according to mode, or expand the word preceding
@@ -82,9 +86,14 @@ point."
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+
  '(hg-log-limit 30)
  '(hg-outgoing-repository "")
  '(hg-incoming-repository "")
+
+ '(confluence-url "http://confluence/rpc/xmlrpc")
+ '(jira-url "http://itjira/rpc/xmlrpc")
+
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
@@ -177,3 +186,25 @@ point."
 (global-set-key [(meta shift j)] 'lop-swap-window)
 (global-set-key [pause] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
+
+
+(global-set-key "\C-xwf" 'confluence-get-page)
+(global-set-key "\C-xws" 'confluence-search)
+
+;; setup confluence mode
+(add-hook 'confluence-mode-hook
+          '(lambda ()
+             (local-set-key "\C-xw" confluence-prefix-map)))
+
+(global-set-key "\C-xwj" 'jira-mode)
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
