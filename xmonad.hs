@@ -27,15 +27,17 @@ myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare" ] -- ++ ma
 
 layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
-layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| Full
+layoutDev = avoidStruts $ tiled ||| fair ||| Mirror tiled ||| Full
   where
-     tiled   = Tall nmaster delta ratio
+     tiled   = Tall nmaster delta tiledRatio
+     fair    = Tall nmaster delta fairRatio
 
      -- The default number of windows in the master pane
      nmaster = 1
 
      -- Default proportion of screen occupied by master pane
-     ratio   = 2/3
+     tiledRatio   = 2/3
+     fairRatio    = 1/2
 
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
