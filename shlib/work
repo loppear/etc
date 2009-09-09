@@ -1,5 +1,6 @@
 alias pg_ctl="sudo -u postgres pg_ctl -D $PGDATA"
 alias lfo_setup="python setup.py install_project --dev --with-tests"
+alias cap1="cap _1.4.2_"
 
 spawn_django () {
        if [ -e ./eggs/bin/python ]
