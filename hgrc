@@ -8,6 +8,7 @@ diff = -p
 
 [alias]
 ll=log -l 7 --graph --style compact
+ldot=ll -r.:.~6
 
 [diff]
 git=1
@@ -25,3 +26,8 @@ hgext.graphlog =
 svn = /Users/luke/lib/hgsubversion/wc/hgsubversion
 nearest = /Users/luke/lib/hgnearest/nearest/nearest.py
 histedit = /Users/luke/lib/hghistedit/hg
+reviewboard = /Users/luke/lib/rb-mercurial/hg
+
+[reviewboard]
+server          = http://rb/
+user            = lopperman
