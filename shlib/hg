@@ -23,6 +23,6 @@ function hg-svn-merge-branch() {
 
 function hg-amend() {
     hg qimp -r.
-    hg qref
+    hg qref "$@"
     hg qfin -a
 }
