@@ -27,6 +27,7 @@ svn = /Users/luke/lib/hgsubversion/wc/hgsubversion
 nearest = /Users/luke/lib/hgnearest/nearest/nearest.py
 histedit = /Users/luke/lib/hghistedit/hg
 reviewboard = /Users/luke/lib/rb-mercurial/hg
+hggnome-keyring = /Users/luke/lib/hggnome-keyring/hg/hggnome-keyring.py
 
 [reviewboard]
 server          = http://rb/
