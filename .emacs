@@ -17,7 +17,6 @@
 (require 'show-wspace)
 (require 'textmate)
 (textmate-mode)
-(textmate-also-ignore "eggs|cover|daisy|.*.pyc")
 
 (require 'nose)
 (setq nose-use-verbose nil)
