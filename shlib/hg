@@ -26,3 +26,13 @@ function hg-amend() {
     hg qref "$@"
     hg qfin -a
 }
+
+function hg-reset() {
+    for node in $(hg out -q --template '{rev} {node}\n' $1 | sort -n | cut -f 2 -d ' ') ; do
+        hg log -r $node > /dev/null 2>&1;
+        if [ $? -eq 0 ] ; then
+          hg strip $node
+        fi
+    done
+    hg pull -u $1
+}
