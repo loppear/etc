@@ -94,7 +94,7 @@ searchMap method = M.fromList $
                    , ((0, xK_w), method "firefox" wikipedia)
                    ]
 
-myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:Bitstream Vera Sans Mono:pixelsize=11'"
+myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans Mono:pixelsize=11'"
 
 -- Do it
 
