@@ -79,9 +79,18 @@ myKeys conf@(XConfig {modMask = modm}) =
              ((modm,               xK_k     ), windows W.focusDown)
            -- Move focus to the previous window
            , ((modm,               xK_j     ), windows W.focusUp  )
+           -- Swap the focused window with the next window
+           , ((modm .|. shiftMask, xK_k     ), windows W.swapDown  )
+           -- Swap the focused window with the previous window
+           , ((modm .|. shiftMask, xK_j     ), windows W.swapUp    )
            ]
-
-
+           -- Physically 2 is to the left of 1
+           -- mod-{e,w,r}, Switch to physical/Xinerama screens 1, 2, or 3
+           -- mod-shift-{e,w,r}, Move client to screen 1, 2, or 3
+           --
+        ++ [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+               | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+               , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 -- Search
 
