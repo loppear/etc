@@ -23,7 +23,7 @@ import Data.Map as M (M.fromList, M.union, Map())
 
 -- Layouts
 
-myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare" ] -- ++ map show [3..6]
+myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare", "dump" ]
 
 layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
 
@@ -92,6 +92,16 @@ myKeys conf@(XConfig {modMask = modm}) =
                | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
                , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
+
+myManageHook = composeAll
+   [ className =? "Emacs"           --> doShift "dev"
+   , className =? "Rhythmbox"       --> doShift "music"
+   , className =? "Thunderbird-bin" --> doShift "music"
+   , className =? "Pidgin"          --> doShift "comm"
+   , manageDocks
+   ]
+
+
 -- Search
 
 pythondoc = searchEngine "pythondoc" "http://www.google.com/search?domains=docs.python.org&sitesearch=docs.python.org&sourceid=google-search&submit=submit&q="
@@ -108,7 +118,7 @@ myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans
 -- Do it
 
 main = xmonad gnomeConfig
-              { manageHook = manageDocks <+> manageHook gnomeConfig
+              { manageHook = myManageHook <+> manageHook gnomeConfig
               , terminal   = myTerminal
               , logHook    = dynamicLogWithPP defaultPP
                              >> ewmhDesktopsLogHook
