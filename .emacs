@@ -46,6 +46,9 @@
 (midnight-delay-set 'midnight-delay "9:50am")
 (setq clean-buffer-list-delay-general 5)
 
+(cua-mode t)
+(setq cua-enable-cua-keys nil)
+
 ; use tab for indent or complete
 (defun indent-or-expand (arg)
   "Either indent according to mode, or expand the word preceding
