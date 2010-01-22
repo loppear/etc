@@ -48,6 +48,8 @@ mkact () {
     if [ $2 ]
     then
         hg clone $2 hg
+    else
+        hg init hg
     fi
     activate-virtualenv `pwd`
 }
