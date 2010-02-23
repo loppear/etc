@@ -9,6 +9,7 @@ diff = -p
 [alias]
 ll=log -l 7 --graph --style compact
 ldot=ll -r.:.~6
+lnearest=parents --template "{latesttag}+{latesttagdistance}\n"
 
 [diff]
 git=1
