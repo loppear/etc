@@ -1,8 +1,9 @@
 export WORKON_HOME=~/projects
 export LIB_HOME=~/lib
+export IDEA_HOME=~/ideas
 
 act () {
-    for home in $WORKON_HOME $LIB_HOME;
+    for home in $WORKON_HOME $IDEA_HOME $LIB_HOME;
     do
         if [ -d $home/$1 ]
         then
