@@ -38,6 +38,31 @@
 
 (require 'mercurial)
 
+(require 'ibuffer)
+(setq ibuffer-saved-filter-groups
+  (quote (("default"
+            ("Projects"
+              (filename . "/projects/"))
+            ("Lib"
+              (filename . "/lib/"))
+            ("Misc Programming"
+              (or
+                (mode . c-mode)
+                (mode . perl-mode)
+                (mode . python-mode)
+                (mode . emacs-lisp-mode)
+                ))
+            ("Notes"
+              (mode . rst-mode))
+           ))))
+
+(add-hook 'ibuffer-mode-hook
+  (lambda ()
+    (ibuffer-switch-to-saved-filter-groups "default")))
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+
 
 (require 'confluence)
 (require 'jira)
@@ -69,7 +94,8 @@ point."
 (setq auto-mode-alist
       (append '(("\\.txt$" . rst-mode)
                 ("\\.rst$" . rst-mode)
-                ("\\.rest$" . rst-mode)) auto-mode-alist))
+                ("\\.rest$" . rst-mode)
+               ) auto-mode-alist))
 (add-hook 'rst-adjust-hook 'rst-toc-update)
 
 ;; Random
