@@ -10,3 +10,13 @@ spawn_django () {
                `which spawn` --factory=spawning.django_factory.config_factory $@
        fi
 }
+
+reset-data() {
+  if [ -e data ]
+  then
+        rm data
+        manage syncdb --noinput
+  else
+        echo 'No data database to reset\n'
+  fi
+}
