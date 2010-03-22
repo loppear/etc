@@ -60,8 +60,8 @@
   (lambda ()
     (ibuffer-switch-to-saved-filter-groups "default")))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(scroll-bar-mode -1)
 
 
 (require 'confluence)
@@ -118,17 +118,15 @@ point."
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
-
+ '(confluence-url "http://confluence/rpc/xmlrpc")
+ '(fringe-mode (quote (5 . 5)) nil (fringe))
+ '(hg-incoming-repository "")
  '(hg-log-limit 30)
  '(hg-outgoing-repository "")
- '(hg-incoming-repository "")
-
- '(confluence-url "http://confluence/rpc/xmlrpc")
- '(jira-url "http://itjira/rpc/xmlrpc")
-
- '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
+ '(jira-url "http://itjira/rpc/xmlrpc")
+ '(org-agenda-files (quote ("~/org/things.org" "~/org/money.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
@@ -139,6 +137,15 @@ point."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
+ '(diff-added ((t (:foreground "DarkGreen"))))
+ '(diff-changed ((t (:foreground "MediumBlue"))))
+ '(diff-context ((t (:foreground "LightSteelBlue"))))
+ '(diff-file-header ((t (:foreground "White"))))
+ '(diff-header ((t (:foreground "White"))))
+ '(diff-hunk-header ((t (:foreground "White"))))
+ '(diff-index ((t (:foreground "Green"))))
+ '(diff-nonexistent ((t (:foreground "DarkBlue"))))
+ '(diff-removed ((t (:foreground "Red"))))
  '(show-ws-tab ((t (:background "DarkGreen"))))
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
@@ -210,6 +217,27 @@ point."
    (current-buffer)))
 
 
+;; Org-mode
+
+(setq org-directory "~/org/")
+(setq org-default-notes-file "~/org")
+(setq org-hide-leading-stars t)
+(setq org-completion-use-ido t)
+(setq org-return-follows-link t)
+(setq remember-annotation-functions '(org-remember-annotation))
+(setq remember-handler-functions '(org-remember-handler))
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+
+(setq org-remember-templates
+    '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "things.org" "Tasks")
+      ("Journal"   ?j "** %^{Head Line} %U %^g\n%i%?"  "journal.org")
+      ("Clipboard" ?c "** %^{Head Line} %U %^g\n%c\n%?"  "journal.org")
+      ("Review" ?r "** %t\n%[~/org/.daily_review.txt]\n" "journal.org")
+
+      )
+    )
+
+
 ;; Keybindings
 (global-set-key [(meta t)] 'textmate-goto-file)
 (global-set-key [(meta z)] 'textmate-find-in-project-type)
@@ -218,10 +246,15 @@ point."
 (global-set-key [(meta shift j)] 'lop-swap-window)
 (global-set-key [pause] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
-
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key "\C-xwf" 'confluence-get-page)
 (global-set-key "\C-xws" 'confluence-search)
+
+(global-set-key "\C-cr" 'org-remember)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+
 
 ;; setup confluence mode
 (add-hook 'confluence-mode-hook
