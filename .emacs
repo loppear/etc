@@ -248,18 +248,14 @@ point."
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(global-set-key "\C-xwf" 'confluence-get-page)
-(global-set-key "\C-xws" 'confluence-search)
+(global-set-key "\C-xw" confluence-prefix-map)
+;;(global-set-key "\C-xwf" 'confluence-get-page)
+;;(global-set-key "\C-xws" 'confluence-search)
 
 (global-set-key "\C-cr" 'org-remember)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 
-
-;; setup confluence mode
-(add-hook 'confluence-mode-hook
-          '(lambda ()
-             (local-set-key "\C-xw" confluence-prefix-map)))
 
 (global-set-key "\C-xwj" 'jira-mode)
 
