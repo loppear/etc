@@ -9,6 +9,9 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.LayoutScreens
+import XMonad.Layout.AutoMaster
+
 
 import XMonad.Prompt.Shell (shellPrompt, prompt, safePrompt)
 import XMonad.Prompt (defaultXPConfig)
@@ -25,12 +28,13 @@ import Data.Map as M (M.fromList, M.union, Map())
 
 myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare", "dump" ]
 
-layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/2) ||| Full
+layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/3) ||| Full
 
-layoutDev = avoidStruts $ tiled ||| fair ||| Mirror tiled ||| Full
+layoutDev = avoidStruts $ tiled ||| masterTiled ||| fair ||| Mirror tiled ||| Full
   where
      tiled   = Tall nmaster delta tiledRatio
      fair    = Tall nmaster delta fairRatio
+     masterTiled = autoMaster nmaster (3/100) tiled
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -55,9 +59,11 @@ myLayouts = onWorkspace "dev" layoutDev
 
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {modMask = modm}) =
-    M.fromList $
-         [ ((modm,                 xK_space), shellPrompt defaultXPConfig)
+    M.fromList $         [ ((modm,                 xK_space), shellPrompt defaultXPConfig)
          , ((modm .|. shiftMask,   xK_space ), sendMessage NextLayout)
+         , ((modm .|. shiftMask,   xK_p), layoutScreens 3 (Tall 1 (3/100) (1/2)))
+         , ((modm .|. controlMask .|. shiftMask, xK_p), rescreen)
+
          , ((modm .|. shiftMask,   xK_c), kill)
 
          , ((modm .|. shiftMask,   xK_Return), spawn $ XMonad.terminal conf)
@@ -75,7 +81,7 @@ myKeys conf@(XConfig {modMask = modm}) =
 
            -- Swap these to make sense
         ++ [
-           -- Move focus to the next window
+           -- Move focus to the next window
              ((modm,               xK_k     ), windows W.focusDown)
            -- Move focus to the previous window
            , ((modm,               xK_j     ), windows W.focusUp  )
@@ -84,12 +90,11 @@ myKeys conf@(XConfig {modMask = modm}) =
            -- Swap the focused window with the previous window
            , ((modm .|. shiftMask, xK_j     ), windows W.swapUp    )
            ]
-           -- Physically 2 is to the left of 1
-           -- mod-{e,w,r}, Switch to physical/Xinerama screens 1, 2, or 3
-           -- mod-shift-{e,w,r}, Move client to screen 1, 2, or 3
+           -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
+           -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
            --
         ++ [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-               | (key, sc) <- zip [xK_e, xK_w, xK_r] [0..]
+               | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
                , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
