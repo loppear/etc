@@ -37,6 +37,10 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
+(require 'autopair)
+(autopair-global-mode 1)
+(setq autopair-autowrap t)
+
 (require 'mercurial)
 
 (require 'ibuffer)
