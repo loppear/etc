@@ -1,1 +1,1 @@
-/Users/luke/lib/durin42-dotfiles/.elisp/textmate.el
+/home/luke/lib/durin42-dotfiles/.elisp/textmate.el

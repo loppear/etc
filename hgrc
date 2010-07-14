@@ -15,7 +15,6 @@ lnearest=parents --template "{latesttag}+{latesttagdistance}\n"
 git=1
 
 [extensions]
-hgext.alias =
 hgext.color =
 hgext.purge =
 hgext.record =
@@ -25,13 +24,6 @@ hgext.mq =
 hgext.rebase =
 hgext.graphlog =
 hgext.bookmarks =
-hggit =
-svn = /Users/luke/lib/hgsubversion/wc/hgsubversion
-nearest = /Users/luke/lib/hgnearest/nearest/nearest.py
-histedit = /Users/luke/lib/hghistedit/hg
-reviewboard = /Users/luke/lib/rb-mercurial/hg
-hggnome-keyring = /Users/luke/lib/hggnome-keyring/hg/hggnome-keyring.py
-
-[reviewboard]
-server          = http://rb/
-user            = lopperman
+hggit = /home/luke/lib/hggit/hggit/
+svn = /home/luke/lib/hgsubversion/hgsubversion
+hggnome-keyring = /home/luke/lib/hggnome-keyring/hggnome-keyring.py
