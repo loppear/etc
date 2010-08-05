@@ -1,8 +1,14 @@
 export GNOME_WM_FLAG=$HOME/.gnome-window-manager.txt
 
-alias xmonad_enable="echo xmonad > $GNOME_WM_FLAG"
-alias xmonad_disable="echo > $GNOME_WM_FLAG"
-alias xmonad_on_start="cat $GNOME_WM_FLAG"
+xmonad_enable () {
+    echo xmonad > $GNOME_WM_FLAG
+}
+xmonad_disable () {
+    echo > $GNOME_WM_FLAG
+}
+xmonad_on_start () {
+    cat $GNOME_WM_FLAG
+}
 
 export WINDOW_MANAGER=`xmonad_on_start 2>/dev/null`
 
