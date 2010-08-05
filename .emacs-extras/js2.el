@@ -1,1 +1,1 @@
-/home/luke/lib/js2-mode/build/js2.el
+../../lib/js2-mode/build/js2-mode.el

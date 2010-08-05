@@ -13,6 +13,7 @@
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
 ; (require 'ipython)
 (require 'show-wspace)
@@ -21,8 +22,8 @@
 
 (require 'nose)
 (setq nose-use-verbose nil)
-(add-to-list 'nose-project-names "eggs/bin/test")
 (add-to-list 'nose-project-names "../bin/nosetests")
+(add-to-list 'nose-project-names "../bin/test")
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key "\C-ca" 'nosetests-all)
@@ -68,6 +69,8 @@
 
 (scroll-bar-mode -1)
 
+(require 'php-mode)
+
 (require 'confluence)
 (require 'jira)
 
@@ -77,6 +80,8 @@
 
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
+
+(column-number-mode 1)
 
 ; use tab for indent or complete
 (defun indent-or-expand (arg)
@@ -101,6 +106,14 @@ point."
                 ("\\.rest$" . rst-mode)
                ) auto-mode-alist))
 (add-hook 'rst-adjust-hook 'rst-toc-update)
+
+
+(require 'linum)
+(require 'pycov2)
+(add-hook 'python-mode-hook
+          (function (lambda ()
+                      (pycov2-mode)
+                      (linum-mode))))
 
 ;; Random
 
@@ -158,6 +171,13 @@ point."
 (add-hook 'before-save-hook '(lambda ()
                                 (whitespace-cleanup)))
 (setq require-final-newline t)
+
+;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
+(defun remove-dos-eol ()
+  "Removes the disturbing '^M' showing up in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
 
 
 ;; Modified from Steve Yegge
