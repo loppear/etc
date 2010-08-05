@@ -20,16 +20,6 @@
 (require 'textmate)
 (textmate-mode)
 
-(require 'nose)
-(setq nose-use-verbose nil)
-(add-to-list 'nose-project-names "../bin/nosetests")
-(add-to-list 'nose-project-names "../bin/test")
-(add-hook 'python-mode-hook
-          (lambda ()
-            (local-set-key "\C-ca" 'nosetests-all)
-            (local-set-key "\C-cm" 'nosetests-module)
-            (local-set-key "\C-c." 'nosetests-one)))
-
 (defun pyflakes-this-buffer ()
   (interactive)
   (compilation-start (concat "pyflakes " buffer-file-name) nil (lambda (mode) "*pyflakes*")))
@@ -114,6 +104,18 @@ point."
           (function (lambda ()
                       (pycov2-mode)
                       (linum-mode))))
+
+(require 'nose)
+(setq nose-use-verbose nil)
+(add-to-list 'nose-project-names "../bin/nosetests")
+(add-to-list 'nose-project-names "../bin/test")
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key "\C-ca" 'nosetests-all)
+            (local-set-key "\C-cm" 'nosetests-module)
+            (local-set-key "\C-c." 'nosetests-one)
+            (local-set-key "\C-cr" 'pycov2-refresh)
+            ))
 
 ;; Random
 
