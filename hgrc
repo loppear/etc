@@ -27,3 +27,4 @@ hgext.bookmarks =
 hggit = /home/luke/lib/hggit/hggit/
 svn = /home/luke/lib/hgsubversion/hgsubversion
 hggnome-keyring = /home/luke/lib/hggnome-keyring/hggnome-keyring.py
+histedit = /home/luke/lib/histedit
