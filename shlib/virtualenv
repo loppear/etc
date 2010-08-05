@@ -2,6 +2,10 @@ export WORKON_HOME=~/projects
 export LIB_HOME=~/lib
 export IDEA_HOME=~/ideas
 
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+
 act () {
     for home in $WORKON_HOME $IDEA_HOME $LIB_HOME;
     do
@@ -44,7 +48,7 @@ activate-virtualenv () {
 }
 
 mkact () {
-    virtualenv $1 || return 1
+    virtualenv $1 --no-site-packages || return 1
     cd $1
     if [ $2 ]
     then
