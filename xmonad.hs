@@ -11,6 +11,8 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.LayoutScreens
 import XMonad.Layout.AutoMaster
+import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 
 
 import XMonad.Prompt.Shell (shellPrompt, prompt, safePrompt)
@@ -103,6 +105,7 @@ myManageHook = composeAll
    , className =? "Rhythmbox"       --> doShift "music"
    , className =? "Thunderbird-bin" --> doShift "music"
    , className =? "Pidgin"          --> doShift "comm"
+   , isFullscreen --> (doF W.focusDown <+> doFullFloat)
    , manageDocks
    ]
 
@@ -130,7 +133,7 @@ main = xmonad gnomeConfig
                              >> setWMName "LG3D"
 
               , modMask    = mod4Mask
-              , layoutHook = myLayouts
+              , layoutHook = smartBorders (myLayouts)
               , workspaces = myWorkspaces
               , keys = \c -> myKeys c `M.union` keys gnomeConfig c
               }
