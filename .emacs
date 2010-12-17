@@ -6,8 +6,7 @@
 (push '(font-backend xft x) default-frame-alist)
 
 (require 'color-theme)
-(require 'zenburn)
-(zenburn)
+(color-theme-charcoal-black)
 
 (require 'diff-mode-)
 
@@ -18,6 +17,8 @@
 ; (require 'ipython)
 (require 'show-wspace)
 (require 'textmate)
+(add-to-list '*textmate-project-roots* "setup.py" t)
+(add-to-list '*textmate-project-roots* "bin" t)
 (textmate-mode)
 
 (defun pyflakes-this-buffer ()
@@ -145,7 +146,7 @@ point."
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(jira-url "http://itjira/rpc/xmlrpc")
- '(org-agenda-files (quote ("~/org/things.org" "~/org/money.org")))
+ '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
@@ -246,10 +247,11 @@ point."
 ;; Org-mode
 
 (setq org-directory "~/org/")
-(setq org-default-notes-file "~/org")
+(setq org-default-notes-file "~/org/notes.org")
 (setq org-hide-leading-stars t)
 (setq org-completion-use-ido t)
 (setq org-return-follows-link t)
+(setq org-log-done 'time)
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
