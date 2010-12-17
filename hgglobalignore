@@ -6,3 +6,10 @@ eggs/*
 \#*\#
 .\#*
 *~
+*.orig
+.cov2emacs.log
+.coverage
+test.log
+build/*
+dist/*
+*.egg-info
