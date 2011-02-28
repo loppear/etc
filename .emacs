@@ -10,10 +10,6 @@
 
 (require 'diff-mode-)
 
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
-
 ; (require 'ipython)
 (require 'show-wspace)
 (require 'textmate)
@@ -62,8 +58,15 @@
 
 (require 'php-mode)
 
-(require 'confluence)
-(require 'jira)
+; Django templates
+(load "~/lib/nxhtml/autostart.el")
+(setq mumamo-background-colors nil)
+(add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
+
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+
 
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "9:50am")
