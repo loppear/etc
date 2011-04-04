@@ -19,11 +19,6 @@ import XMonad.Prompt (defaultXPConfig)
 
 import XMonad.Actions.CycleWS
 
-import XMonad.Actions.Submap (submap)
-import XMonad.Actions.Search (google, wikipedia,
-                              promptSearch, selectSearch,
-                              searchEngine)
-
 import Data.Map as M (M.fromList, M.union, Map())
 
 
@@ -73,8 +68,6 @@ myKeys conf@(XConfig {modMask = modm}) =
          , ((modm .|. shiftMask,   xK_c), kill)
 
          , ((modm .|. shiftMask,   xK_Return), spawn $ XMonad.terminal conf)
-           -- Search keys
---         , ((modm,                 xK_s), selectSearch defaultXPConfig)
 
            -- Conkeror workaround, see http://conkeror.org/UpstreamBugs#FocusedpluginspreventConkerorkeybindingsfromworking
          , ((modm .|. shiftMask,  xK_f), spawn "conkeror -f unfocus")
@@ -119,17 +112,6 @@ myManageHook = composeAll
    , manageDocks
    ]
 
-
--- Search
-
-pythondoc = searchEngine "pythondoc" "http://www.google.com/search?domains=docs.python.org&sitesearch=docs.python.org&sourceid=google-search&submit=submit&q="
-
-
-searchMap method = M.fromList $
-                   [ ((0, xK_g), method "firefox" google)
-                   , ((0, xK_p), method "firefox" pythondoc)
-                   , ((0, xK_w), method "firefox" wikipedia)
-                   ]
 
 myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans Mono:pixelsize=11'"
 
