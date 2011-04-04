@@ -14,10 +14,11 @@ import XMonad.Layout.AutoMaster
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 
-
 import XMonad.Prompt.Shell (shellPrompt, prompt, safePrompt)
 import XMonad.Prompt (defaultXPConfig)
-import XMonad.Actions.Plane
+
+import XMonad.Actions.CycleWS
+
 import XMonad.Actions.Submap (submap)
 import XMonad.Actions.Search (google, wikipedia,
                               promptSearch, selectSearch,
@@ -75,15 +76,22 @@ myKeys conf@(XConfig {modMask = modm}) =
            -- Conkeror workaround, see http://conkeror.org/UpstreamBugs#FocusedpluginspreventConkerorkeybindingsfromworking
          , ((modm .|. shiftMask,  xK_f), spawn "conkeror -f unfocus")
          ]
-           -- Plane
-        ++ [ ((keyMask .|. modm, keySym), function (Lines 3) Finite direction) |
-             (keySym, direction) <- zip [xK_Left .. xK_Down] $ enumFrom ToLeft
-           , (keyMask, function) <- [(0, planeMove), (shiftMask, planeShift)]
-           ]
+         -- a basic CycleWS setup
+      ++ [
+           ((modm,               xK_Down),  nextWS)
+         , ((modm,               xK_Up),    prevWS)
+         , ((modm .|. shiftMask, xK_Down),  shiftToNext >> nextWS)
+         , ((modm .|. shiftMask, xK_Up),    shiftToPrev >> prevWS)
+         , ((modm,               xK_Right), nextScreen)
+         , ((modm,               xK_Left),  prevScreen)
+         , ((modm .|. shiftMask, xK_Right), shiftNextScreen)
+         , ((modm .|. shiftMask, xK_Left),  shiftPrevScreen)
+         , ((modm,               xK_z),     toggleWS)
+         ]
 
            -- Swap these to make sense
         ++ [
-           -- Move focus to the next window
+           -- Move focus to the next window
              ((modm,               xK_k     ), windows W.focusDown)
            -- Move focus to the previous window
            , ((modm,               xK_j     ), windows W.focusUp  )
