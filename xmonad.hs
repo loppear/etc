@@ -29,14 +29,17 @@ import Data.Map as M (M.fromList, M.union, Map())
 
 -- Layouts
 
-myWorkspaces = ["dev", "net", "web", "music", "term", "comm", "spare", "dump" ]
+myWorkspaces = ["dev", "net", "work", "web", "term", "comm", "spare",  "music" ]
 
 layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/3) ||| Full
 
-layoutDev = avoidStruts $ tiled ||| masterTiled ||| fair ||| Mirror tiled ||| Full
+layoutWeb = avoidStruts $ tiled ||| Mirror tiled ||| Full
+  where
+    tiled = Tall 1 (3/100) (1/2)
+
+layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| masterTiled ||| Full
   where
      tiled   = Tall nmaster delta tiledRatio
-     fair    = Tall nmaster delta fairRatio
      masterTiled = autoMaster nmaster (3/100) tiled
 
      -- The default number of windows in the master pane
@@ -44,7 +47,6 @@ layoutDev = avoidStruts $ tiled ||| masterTiled ||| fair ||| Mirror tiled ||| Fu
 
      -- Default proportion of screen occupied by master pane
      tiledRatio   = 2/3
-     fairRatio    = 1/2
 
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
@@ -52,8 +54,9 @@ layoutDev = avoidStruts $ tiled ||| masterTiled ||| fair ||| Mirror tiled ||| Fu
 
 myLayouts = onWorkspace "dev" layoutDev
             $ onWorkspace "comm" layoutComm
-            $ onWorkspace "net" layoutDev
-            $ onWorkspace "web" layoutDev
+            $ onWorkspace "net" layoutWeb
+            $ onWorkspace "work" layoutWeb
+            $ onWorkspace "web" layoutWeb
             $ onWorkspace "music" layoutDev
             $ avoidStruts (layoutHook defaultConfig)
 
@@ -111,7 +114,6 @@ myKeys conf@(XConfig {modMask = modm}) =
 myManageHook = composeAll
    [ className =? "Emacs"           --> doShift "dev"
    , className =? "Rhythmbox"       --> doShift "music"
-   , className =? "Thunderbird-bin" --> doShift "music"
    , className =? "Pidgin"          --> doShift "comm"
    , isFullscreen --> (doF W.focusDown <+> doFullFloat)
    , manageDocks

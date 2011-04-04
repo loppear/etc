@@ -6,18 +6,15 @@
 (push '(font-backend xft x) default-frame-alist)
 
 (require 'color-theme)
-(require 'zenburn)
-(zenburn)
+(color-theme-charcoal-black)
 
 (require 'diff-mode-)
-
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
 ; (require 'ipython)
 (require 'show-wspace)
 (require 'textmate)
+(add-to-list '*textmate-project-roots* "setup.py" t)
+(add-to-list '*textmate-project-roots* "bin" t)
 (textmate-mode)
 
 (defun pyflakes-this-buffer ()
@@ -61,8 +58,15 @@
 
 (require 'php-mode)
 
-(require 'confluence)
-(require 'jira)
+; Django templates
+(load "~/lib/nxhtml/autostart.el")
+(setq mumamo-background-colors nil)
+(add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
+
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+
 
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "9:50am")
@@ -137,15 +141,13 @@ point."
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(confluence-url "http://confluence/rpc/xmlrpc")
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(hg-incoming-repository "")
  '(hg-log-limit 30)
  '(hg-outgoing-repository "")
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
- '(jira-url "http://itjira/rpc/xmlrpc")
- '(org-agenda-files (quote ("~/org/things.org" "~/org/money.org")))
+ '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
@@ -246,10 +248,11 @@ point."
 ;; Org-mode
 
 (setq org-directory "~/org/")
-(setq org-default-notes-file "~/org")
+(setq org-default-notes-file "~/org/notes.org")
 (setq org-hide-leading-stars t)
 (setq org-completion-use-ido t)
 (setq org-return-follows-link t)
+(setq org-log-done 'time)
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
@@ -274,16 +277,10 @@ point."
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(global-set-key "\C-xw" confluence-prefix-map)
-;;(global-set-key "\C-xwf" 'confluence-get-page)
-;;(global-set-key "\C-xws" 'confluence-search)
 
 (global-set-key "\C-cr" 'org-remember)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
-
-
-(global-set-key "\C-xwj" 'jira-mode)
 
 
 ;;; This was installed by package-install.el.
