@@ -172,8 +172,13 @@ point."
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
 ;; h/t Augie
-(add-hook 'before-save-hook '(lambda ()
-                                (whitespace-cleanup)))
+(add-hook 'python-mode-hook
+          (lambda()
+            (add-hook 'write-file-functions
+                      '(lambda ()
+                         (whitespace-cleanup)
+                         nil))
+          ))
 (setq require-final-newline t)
 
 ;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
