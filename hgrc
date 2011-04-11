@@ -10,6 +10,7 @@ diff = -p
 ll=log -l 7 --graph --style compact
 ldot=ll -r.:.~6
 lnearest=parents --template "{latesttag}+{latesttagdistance}\n"
+difftip=diff -rtip^:tip
 
 [diff]
 git=1
@@ -31,3 +32,6 @@ histedit = /home/luke/lib/histedit/hg_histedit.py
 
 [merge-tools]
 meld.args = $base $local $other
+
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
