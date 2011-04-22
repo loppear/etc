@@ -22,6 +22,7 @@ hg clone http://js2-mode.googlecode.com/svn/trunk/ ~/lib/js2-mode
 hg clone http://hg.intevation.org/mercurial/crew ~/lib/mercurial-crew
 hg clone http://bitbucket.org/durin42/histedit/ ~/lib/histedit
 hg clone git://github.com/mattharrison/pycoverage.el.git ~/lib/pycoverage.el
+hg clone git://github.com/defunkt/coffee-mode.git ~/lib/coffee-mode
 
 mkdir -p ~/.xmonad/
 

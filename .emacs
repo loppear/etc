@@ -271,6 +271,30 @@ point."
       )
     )
 
+;; Coffeescript
+(require 'coffee-mode)
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+
+  ;; CoffeeScript uses two spaces.
+  (set (make-local-variable 'tab-width) 2)
+
+  ;; *Messages* spam
+  (setq coffee-debug-mode t)
+
+  ;; Emacs key binding
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+
+  ;; Compile '.coffee' files on every save
+  (add-hook 'after-save-hook
+      '(lambda ()
+         (when (string-match "\.coffee$" (buffer-name))
+          (coffee-compile-file))))
+)
+
+(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+
 
 ;; Keybindings
 (global-set-key [(meta t)] 'textmate-goto-file)
