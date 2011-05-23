@@ -67,6 +67,8 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
 
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "9:50am")
