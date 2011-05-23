@@ -29,6 +29,9 @@
 (autopair-global-mode 1)
 (setq autopair-autowrap t)
 
+(put 'narrow-to-defun 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+
 (require 'mercurial)
 
 (require 'ibuffer)
@@ -89,8 +92,6 @@ point."
        (or (eobp) (not (= ?w (char-syntax (char-after))))))
       (dabbrev-expand arg)
     (indent-according-to-mode)))
-
-(add-hook 'python-mode-hook (lambda () (local-set-key [tab] 'indent-or-expand)))
 
 
 ;; Document modes
@@ -299,7 +300,12 @@ point."
 
 
 ;; Keybindings
-(global-set-key [(meta t)] 'textmate-goto-file)
+
+(global-set-key "\C-w" 'clipboard-kill-region)
+(global-set-key "\M-w" 'clipboard-kill-ring-save)
+(global-set-key "\C-y" 'clipboard-yank)
+(global-set-key [tab] 'indent-or-expand)
+(global-set-key [(control t)] 'textmate-goto-symbol)
 (global-set-key [(meta z)] 'textmate-find-in-project-type)
 (global-set-key [(control q)] 'kill-this-buffer)
 (global-set-key [(meta j)] 'lop-swap-window-to-first)
