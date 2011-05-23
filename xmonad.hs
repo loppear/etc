@@ -19,14 +19,16 @@ import XMonad.Prompt (defaultXPConfig)
 
 import XMonad.Actions.CycleWS
 
-import Data.Map as M (M.fromList, M.union, Map())
+import qualified Data.Map as M (fromList, union, Map())
 
 
 -- Layouts
 
 myWorkspaces = ["dev", "net", "work", "web", "term", "comm", "spare",  "music" ]
 
-layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/3) ||| Full
+layoutComm = avoidStruts $ ThreeCol 1 (3/100) (1/3) ||| tiled ||| Mirror tiled ||| Full
+  where
+    tiled = Tall 1 (3/100) (2/3)
 
 layoutWeb = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
