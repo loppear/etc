@@ -25,6 +25,7 @@ hg clone git://github.com/mattharrison/pycoverage.el.git ~/lib/pycoverage.el
 hg clone git://github.com/defunkt/coffee-mode.git ~/lib/coffee-mode
 
 mkdir -p ~/.xmonad/
+mkdir -p ~/.ssh/
 
 ln -s $PWD/conkerorrc ~/.conkerorrc
 ln -s $PWD/.emacs ~/.emacs
@@ -35,6 +36,7 @@ ln -s $PWD/Xmodmap ~/.Xmodmap
 ln -s $PWD/Xresources ~/.Xresources
 ln -s $PWD/xmonad.hs ~/.xmonad/xmonad.hs
 ln -s $PWD/ipythonrc ~/.ipythonrc
+ln -s $PWD/ssh-config ~/.ssh/config
 
 
 cat > ~/.bashrc <<EOF
