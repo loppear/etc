@@ -11,6 +11,7 @@ ll=log -l 7 --graph --style compact
 ldot=ll -r.:.~6
 lnearest=parents --template "{latesttag}+{latesttagdistance}\n"
 difftip=diff -rtip^:tip
+diffdot=diff -r.^:.
 
 [diff]
 git=1
@@ -20,7 +21,6 @@ hgext.color =
 hgext.purge =
 hgext.record =
 transplant =
-hgext.parentrevspec =
 hgext.mq =
 hgext.rebase =
 hgext.graphlog =
