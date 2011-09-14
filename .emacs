@@ -104,13 +104,7 @@ point."
                ) auto-mode-alist))
 (add-hook 'rst-adjust-hook 'rst-toc-update)
 
-
 (require 'linum)
-(require 'pycov2)
-(add-hook 'python-mode-hook
-          (function (lambda ()
-                      (pycov2-mode)
-                      (linum-mode))))
 
 (require 'nose)
 (setq nose-use-verbose nil)
