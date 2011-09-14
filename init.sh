@@ -32,6 +32,7 @@ ln -s $PWD/.emacs ~/.emacs
 ln -s $PWD/.emacs-extras ~/.emacs-extras
 ln -s $PWD/gnomerc ~/.gnomerc
 ln -s $PWD/hgrc ~/.hgrc
+ln -s $PWD/gitconfig ~/.gitconfig
 ln -s $PWD/Xmodmap ~/.Xmodmap
 ln -s $PWD/Xresources ~/.Xresources
 ln -s $PWD/xmonad.hs ~/.xmonad/xmonad.hs
