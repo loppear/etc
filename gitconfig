@@ -1,3 +1,19 @@
 [user]
 name = Luke Opperman
 email = luke@loppear.com
+
+[core]
+excludesfile = ~/etc/hgglobalignore
+
+[format]
+pretty="%h (%p)   %ad   %ae%n  %s%n"
+
+[alias]
+ll = log --abbrev-commit --graph --decorate --relative-date
+st = status
+ci = commit
+co = checkout
+br = branch
+
+[color]
+ui = auto
