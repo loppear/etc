@@ -223,6 +223,13 @@ point."
     (set-window-start w2 s1)
     ))
 
+(defun select-previous-window ()
+  "Switch to the previous window"
+  (interactive)
+  (other-window -1))
+
+
+
 ;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
 (defun toggle-window-dedicated ()
   "Toggle whether the current active window is dedicated or not"
@@ -287,6 +294,7 @@ point."
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
+(global-set-key "\C-xp" 'select-previous-window)
 (global-set-key [tab] 'indent-or-expand)
 (global-set-key [(control t)] 'textmate-goto-symbol)
 (global-set-key [(meta z)] 'textmate-find-in-project-type)
