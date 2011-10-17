@@ -6,14 +6,18 @@ email = luke@loppear.com
 excludesfile = ~/etc/hgglobalignore
 
 [format]
-pretty="%h (%p)   %ad   %ae%n  %s%n"
+pretty="%h (%p)   %ad   %ae %d%n  %s%n"
 
 [alias]
 ll = log --abbrev-commit --graph --decorate --relative-date
+lol = log --abbrev-commit --graph --decorate --relative-date --all
 st = status
-ci = commit
+ci = commit -a
 co = checkout
 br = branch
+di = diff
 
 [color]
 ui = auto
+[merge]
+tool = kdiff3

@@ -7,6 +7,7 @@ sudo apt-get install xmonad
 sudo apt-get install ipython
 sudo apt-get install conkeror
 sudo apt-get install mercurial
+sudo apt-get install git
 sudo apt-get install ttf-dejavu
 sudo apt-get install python-dulwich
 sudo apt-get install python-subversion

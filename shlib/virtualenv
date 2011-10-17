@@ -26,7 +26,7 @@ activate-virtualenv () {
     if-exists deactivate
     workon="$1"
     found=0
-    for subpath in $workon/hg $workon/wc $workon;
+    for subpath in $workon/hg $workon/gt $workon/wc $workon;
     do
         if [ -d $subpath ]
         then
