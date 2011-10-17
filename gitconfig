@@ -9,8 +9,8 @@ excludesfile = ~/etc/hgglobalignore
 pretty="%h (%p)   %ad   %ae %d%n  %s%n"
 
 [alias]
-ll = log --abbrev-commit --graph --decorate --relative-date
-lol = log --abbrev-commit --graph --decorate --relative-date --all
+lol = log --abbrev-commit --graph --decorate --relative-date
+ll = log --abbrev-commit --graph --decorate --relative-date --all
 st = status
 ci = commit -a
 co = checkout
