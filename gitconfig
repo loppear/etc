@@ -6,11 +6,12 @@ email = luke@loppear.com
 excludesfile = ~/etc/hgglobalignore
 
 [format]
-pretty="%h (%p)   %ad   %ae %n%Cgreen%-d%Creset%n  %s%n"
+pretty=short
 
 [alias]
 lol = log --abbrev-commit --graph --decorate --relative-date
 ll = log --abbrev-commit --graph --decorate --relative-date --all
+lls = log --abbrev-commit --graph --decorate --relative-date --all --simplify-by-decoration
 st = status
 ci = commit -a
 co = checkout
