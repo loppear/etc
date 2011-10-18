@@ -6,7 +6,7 @@ email = luke@loppear.com
 excludesfile = ~/etc/hgglobalignore
 
 [format]
-pretty="%h (%p)   %ad   %ae %d%n  %s%n"
+pretty="%h (%p)   %ad   %ae %n%Cgreen%-d%Creset%n  %s%n"
 
 [alias]
 lol = log --abbrev-commit --graph --decorate --relative-date
