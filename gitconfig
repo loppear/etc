@@ -10,7 +10,7 @@ pretty=short
 
 [alias]
 lol = log --abbrev-commit --graph --decorate --relative-date
-ll = log --abbrev-commit --graph --decorate --relative-date --all
+ll = log --abbrev-commit --graph --decorate --relative-date --all --date-order
 lls = log --abbrev-commit --graph --decorate --relative-date --all --simplify-by-decoration
 st = status
 ci = commit -a
