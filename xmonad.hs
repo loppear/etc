@@ -110,6 +110,8 @@ myManageHook = composeAll
    [ className =? "Emacs"           --> doShift "dev"
    , className =? "Rhythmbox"       --> doShift "music"
    , className =? "Pidgin"          --> doShift "comm"
+   , className =? "Empathy"         --> doShift "comm"
+   , className =? "Unity-2d-panel"  --> doIgnore
    , isFullscreen --> (doF W.focusDown <+> doFullFloat)
    , manageDocks
    ]
