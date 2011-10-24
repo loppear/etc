@@ -70,6 +70,9 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
+(add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
+
+
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
@@ -263,6 +266,12 @@ point."
 
       )
     )
+
+;; Octave
+(autoload 'octave-mode "octave-mod" nil t)
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(autoload 'run-octave "octave-inf" nil t)
 
 ;; Coffeescript
 (require 'coffee-mode)
