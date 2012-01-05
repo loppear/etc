@@ -17,6 +17,7 @@ ci = commit -a
 co = checkout
 br = branch
 di = diff
+up = fetch --all
 
 [color]
 ui = auto
