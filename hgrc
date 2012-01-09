@@ -2,12 +2,13 @@
 username = Luke Opperman <luke@loppear.com>
 merge=meld
 ignore = ~/etc/hgglobalignore
+style = ~/lib/mercurial-cli-templates/map-cmdline.sglog
 
 [defaults]
 diff = -p
 
 [alias]
-ll=log -l 7 --graph --style compact
+ll=log --graph
 ldot=ll -r.:.~6
 lnearest=parents --template "{latesttag}+{latesttagdistance}\n"
 difftip=diff -rtip^:tip
@@ -42,5 +43,6 @@ track.current = True
 
 [pager]
 pager = less -FRX
+attend = annotate, cat, diff, export, glog, log, qdiff, ll, difftip, diffdot
 
 %include ~/.hgrc.local
