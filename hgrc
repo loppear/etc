@@ -25,9 +25,9 @@ hgext.mq =
 hgext.rebase =
 hgext.graphlog =
 hgext.bookmarks =
+mercurial_keyring =
 hggit = /home/luke/lib/hggit/hggit/
 svn = /home/luke/lib/hgsubversion/hgsubversion
-hggnome-keyring = /home/luke/lib/hggnome-keyring/hggnome-keyring.py
 histedit = /home/luke/lib/histedit/hg_histedit.py
 
 [merge-tools]
@@ -35,3 +35,5 @@ meld.args = $base $local $other
 
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
+
+%include ~/.hgrc.local
