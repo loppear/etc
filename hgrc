@@ -17,14 +17,15 @@ diffdot=diff -r.^:.
 git=1
 
 [extensions]
-hgext.color =
-hgext.purge =
-hgext.record =
+color =
+purge =
+record =
 transplant =
-hgext.mq =
-hgext.rebase =
-hgext.graphlog =
-hgext.bookmarks =
+mq =
+rebase =
+graphlog =
+bookmarks =
+pager =
 mercurial_keyring =
 hggit = /home/luke/lib/hggit/hggit/
 svn = /home/luke/lib/hgsubversion/hgsubversion
@@ -35,5 +36,11 @@ meld.args = $base $local $other
 
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
+
+[bookmarks]
+track.current = True
+
+[pager]
+pager = less -FRX
 
 %include ~/.hgrc.local
