@@ -113,6 +113,7 @@ point."
 (setq nose-use-verbose nil)
 (add-to-list 'nose-project-names "../bin/nosetests")
 (add-to-list 'nose-project-names "../bin/test")
+(add-to-list 'nose-project-root-files "manage.py")
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key "\C-ca" 'nosetests-all)
@@ -306,7 +307,8 @@ point."
 (global-set-key "\C-xp" 'select-previous-window)
 (global-set-key [tab] 'indent-or-expand)
 (global-set-key [(control t)] 'textmate-goto-symbol)
-(global-set-key [(meta z)] 'textmate-find-in-project-type)
+(global-set-key [(meta z)] 'textmate-find-in-project)
+(global-set-key [(meta shift z)] 'textmate-find-in-project-type)
 (global-set-key [(control q)] 'kill-this-buffer)
 (global-set-key [(meta j)] 'lop-swap-window-to-first)
 (global-set-key [(meta shift j)] 'lop-swap-window)
