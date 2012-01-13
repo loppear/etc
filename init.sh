@@ -12,6 +12,7 @@ sudo apt-get install ttf-dejavu ttf-inconsolata
 sudo apt-get install python-dulwich
 sudo apt-get install python-subversion
 sudo apt-get install curl
+sudo apt-get install irssi irssi-plugin-xmpp
 sudo apt-get install python-pip
 sudo pip install mercurial_keyring
 
@@ -29,6 +30,7 @@ hg clone https://bitbucket.org/sjl/mercurial-cli-templates ~/lib/mercurial-cli-t
 
 mkdir -p ~/.xmonad/
 mkdir -p ~/.ssh/
+mkdir -p ~/.irssi/
 
 ln -s $PWD/conkerorrc ~/.conkerorrc
 ln -s $PWD/.emacs ~/.emacs
@@ -41,6 +43,7 @@ ln -s $PWD/Xresources ~/.Xresources
 ln -s $PWD/xmonad.hs ~/.xmonad/xmonad.hs
 ln -s $PWD/ipythonrc ~/.ipythonrc
 ln -s $PWD/ssh-config ~/.ssh/config
+ln -s $PWD/irssi-config ~/.irssi/config
 
 
 cat > ~/.bashrc <<EOF
