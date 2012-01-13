@@ -27,6 +27,7 @@ rebase =
 graphlog =
 bookmarks =
 pager =
+fetch =
 mercurial_keyring =
 hggit = /home/luke/lib/hggit/hggit/
 svn = /home/luke/lib/hgsubversion/hgsubversion
