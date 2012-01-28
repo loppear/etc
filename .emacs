@@ -2,6 +2,7 @@
 (global-auto-revert-mode)
 
 (add-to-list 'load-path "~/.emacs-extras")
+(add-to-list 'load-path "~/lib/expand-region.el")
 
 (push '(font-backend xft x) default-frame-alist)
 
@@ -75,6 +76,8 @@
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
+
+(require 'expand-region)
 
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "9:50am")
@@ -321,6 +324,7 @@ point."
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 
+(global-set-key (kbd "C-c SPC") 'er/expand-region)
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and

@@ -27,6 +27,7 @@ hg clone http://hg.intevation.org/mercurial/crew ~/lib/mercurial-crew
 hg clone http://bitbucket.org/durin42/histedit/ ~/lib/histedit
 hg clone git://github.com/defunkt/coffee-mode.git ~/lib/coffee-mode
 hg clone https://bitbucket.org/sjl/mercurial-cli-templates ~/lib/mercurial-cli-templates
+git clone https://github.com/magnars/expand-region.el.git ~/lib/expand-region.el
 
 mkdir -p ~/.xmonad/
 mkdir -p ~/.ssh/
