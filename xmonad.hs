@@ -7,6 +7,7 @@ import XMonad.Config.Gnome
 
 import qualified XMonad.StackSet as W
 
+import XMonad.Layout.TwoPane
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.LayoutScreens
@@ -64,7 +65,7 @@ myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {modMask = modm}) =
     M.fromList $         [ ((modm,                 xK_space), shellPrompt defaultXPConfig)
          , ((modm .|. shiftMask,   xK_space ), sendMessage NextLayout)
-         , ((modm .|. shiftMask,   xK_p), layoutScreens 3 (Tall 1 (3/100) (1/2)))
+         , ((modm .|. shiftMask,   xK_p), layoutScreens 2 (TwoPane 0.5 0.5))
          , ((modm .|. controlMask .|. shiftMask, xK_p), rescreen)
 
          , ((modm .|. shiftMask,   xK_c), kill)
