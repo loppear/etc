@@ -60,8 +60,6 @@
 
 (scroll-bar-mode -1)
 
-(require 'php-mode)
-
 ; Django templates
 (load "~/lib/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
@@ -72,6 +70,11 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
 (add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
+
+(add-hook 'nxhtml-mumamo-mode-hook
+        (lambda ()
+        (setq indent-tabs-mode t)
+        ))
 
 
 (require 'volatile-highlights)
@@ -183,7 +186,8 @@ point."
  '(diff-index ((t (:foreground "Green"))))
  '(diff-nonexistent ((t (:foreground "DarkBlue"))))
  '(diff-removed ((t (:foreground "Red"))))
- '(show-ws-tab ((t (:background "DarkGreen"))))
+ '(show-ws-tab ((t (:background "gray20"))))
+ '(show-ws-trailing-whitespace ((t (:background "Gold"))))
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
