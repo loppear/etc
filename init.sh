@@ -46,6 +46,8 @@ ln -s $PWD/ipythonrc ~/.ipythonrc
 ln -s $PWD/ssh-config ~/.ssh/config
 ln -s $PWD/irssi-config ~/.irssi/config
 
+sudo ln -s $PWD/xmonad.session /usr/share/gnome-session/sessions/xmonad.session
+sudo ln -s $PWD/xmonad-unity-session.desktop /usr/share/xsessions/xmonad-unity-session.desktop
 
 cat > ~/.bashrc <<EOF
 pushd ~/etc/shlib > /dev/null
