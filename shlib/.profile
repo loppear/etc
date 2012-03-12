@@ -3,4 +3,5 @@
 . ./work
 . ./svn
 . ./hg
+. ./git
 . ./xmonad-startup
