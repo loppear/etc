@@ -17,9 +17,15 @@ ci = commit -a
 co = checkout
 br = branch
 di = diff
+dc = diff --cached
 up = fetch --all
+
+[push]
+default = upstream
 
 [color]
 ui = auto
+
 [merge]
 tool = kdiff3
+defaultToUpstream = true
