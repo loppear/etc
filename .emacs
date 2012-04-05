@@ -71,11 +71,16 @@
 
 (add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
 
-(add-hook 'nxhtml-mumamo-mode-hook
-        (lambda ()
-        (setq indent-tabs-mode t)
-        ))
+(defun lo-tabs-mode ()
+  (setq indent-tabs-mode t)
+  (setq default-tab-width 4)
+  (setq c-default-style "bsd"
+        c-basic-offset 4)
+  )
 
+(add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
+(add-hook 'php-mode-hook 'lo-tabs-mode)
+(add-hook 'js-mode-hook 'lo-tabs-mode)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -120,6 +125,7 @@ point."
 (add-to-list 'nose-project-names "../bin/nosetests")
 (add-to-list 'nose-project-names "../bin/test")
 (add-to-list 'nose-project-root-files "manage.py")
+(add-to-list 'nose-project-root-files "build.xml")
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key "\C-ca" 'nosetests-all)
@@ -127,6 +133,19 @@ point."
             (local-set-key "\C-c." 'nosetests-one)
             (local-set-key "\C-cr" 'pycov2-refresh)
             ))
+(add-hook 'nxhtml-mumamo-mode-hook
+          (lambda ()
+            (local-set-key "\C-ca" 'nosetests-all)
+            (local-set-key "\C-cm" 'nosetests-module)
+            (local-set-key "\C-c." 'nosetests-one)
+            ))
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;; Shell
 
@@ -162,6 +181,7 @@ point."
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
+ '(warning-minimum-level :error)
  ;; shell
  '(comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
  '(comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
@@ -192,13 +212,13 @@ point."
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
 ;; h/t Augie
-(add-hook 'python-mode-hook
-          (lambda()
-            (add-hook 'write-file-functions
-                      '(lambda ()
-                         (whitespace-cleanup)
-                         nil))
-          ))
+;;(add-hook 'python-mode-hook
+;;          (lambda()
+;;            (add-hook 'write-file-functions
+;;                      '(lambda ()
+;;                         (whitespace-cleanup)
+;;                         nil))
+;;          ))
 (setq require-final-newline t)
 
 ;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
@@ -311,7 +331,8 @@ point."
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
-(global-set-key "\C-xp" 'select-previous-window)
+(global-set-key "\C-xo" 'select-previous-window)
+(global-set-key "\C-xp" 'other-window)
 (global-set-key [tab] 'indent-or-expand)
 (global-set-key [(control t)] 'textmate-goto-symbol)
 (global-set-key [(meta z)] 'textmate-find-in-project)
@@ -319,7 +340,7 @@ point."
 (global-set-key [(control q)] 'kill-this-buffer)
 (global-set-key [(meta j)] 'lop-swap-window-to-first)
 (global-set-key [(meta shift j)] 'lop-swap-window)
-(global-set-key [pause] 'toggle-window-dedicated)
+(global-set-key [f9] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
