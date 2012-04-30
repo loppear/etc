@@ -97,16 +97,21 @@
 (column-number-mode 1)
 
 ; use tab for indent or complete
-(defun indent-or-expand (arg)
-  "Either indent according to mode, or expand the word preceding
-point."
-  (interactive "*P")
-  (if (and
-       (or (bobp) (= ?w (char-syntax (char-before))))
-       (or (eobp) (not (= ?w (char-syntax (char-after))))))
-      (dabbrev-expand arg)
-    (indent-according-to-mode)))
-
+(defun smart-tab ()
+  "This smart tab is minibuffer compliant: it acts as usual in
+    the minibuffer. Else, if mark is active, indents region. Else if
+    point is at the end of a symbol, expands it. Else indents the
+    current line."
+  (interactive)
+  (if (minibufferp)
+      (unless (minibuffer-complete)
+        (dabbrev-expand nil))
+    (if mark-active
+        (indent-region (region-beginning)
+                       (region-end))
+      (if (looking-at "\\_>")
+          (dabbrev-expand nil)
+        (indent-for-tab-command)))))
 
 ;; Document modes
 (require 'rst)
@@ -333,7 +338,7 @@ point."
 (global-set-key "\C-y" 'clipboard-yank)
 (global-set-key "\C-xo" 'select-previous-window)
 (global-set-key "\C-xp" 'other-window)
-(global-set-key [tab] 'indent-or-expand)
+(global-set-key [tab] 'smart-tab)
 (global-set-key [(control t)] 'textmate-goto-symbol)
 (global-set-key [(meta z)] 'textmate-find-in-project)
 (global-set-key [(meta shift z)] 'textmate-find-in-project-type)
