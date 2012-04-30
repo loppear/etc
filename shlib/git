@@ -1,3 +1,43 @@
 source ../git-completion.bash
 export GIT_PS1_SHOWUPSTREAM="auto"
 export PS1='[\u@\h \w$(__git_ps1 " (%s)")]\$ '
+
+
+function git-delete-merged-branches() {
+         if [ $1 ]
+         then
+             remote="$1"
+         else
+             remote="origin"
+         fi
+         # This has to be run from master
+         git checkout master
+
+         # Update our list of remotes
+         git fetch $remote
+         git remote prune $remote
+
+         # Show locally merged branches
+         echo "The following local branches are fully merged and will be removed:"
+         git branch --merged master | grep -v 'master$'
+         
+         read -p "Continue (y/n)? "
+         if [ "$REPLY" == "y" ]
+         then
+              # Remove local fully merged branches
+              git branch --merged master | grep -v 'master$' | xargs git branch -d
+         fi
+         # Show remote fully merged branches
+         echo "The following remote branches are fully merged on $remote and will be removed:"
+         git branch -r --merged master | grep " *$remote" | sed "s/ *$remote\///" \
+             | grep -v 'master$'
+
+         read -p "Continue (y/n)? "
+         if [ "$REPLY" == "y" ]
+         then
+            # Remove remote fully merged branches
+               git branch -r --merged master | grep " *$remote" | sed "s/ *$remote\///" \
+                 | grep -v 'master$' | xargs -I% git push $remote :%
+               echo "Done!"
+         fi
+}
