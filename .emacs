@@ -336,8 +336,8 @@
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
-(global-set-key "\C-xo" 'select-previous-window)
-(global-set-key "\C-xp" 'other-window)
+(global-set-key "\C-xp" 'select-previous-window)
+(global-set-key "\C-xo" 'other-window)
 (global-set-key [tab] 'smart-tab)
 (global-set-key [(control t)] 'textmate-goto-symbol)
 (global-set-key [(meta z)] 'textmate-find-in-project)
@@ -349,12 +349,17 @@
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; effective emacs
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+(global-set-key "\C-w" 'kill-region)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
 
-(global-set-key "\C-cr" 'org-remember)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
 
 (global-set-key (kbd "C-c SPC") 'er/expand-region)
+
+(global-set-key (kbd "C-c s") 'magit-status)
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
