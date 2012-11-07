@@ -35,9 +35,10 @@ layoutWeb = avoidStruts $ tiled ||| Mirror tiled ||| Full
   where
     tiled = Tall 1 (3/100) (1/2)
 
-layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| masterTiled ||| Full
+layoutDev = avoidStruts $ threeCol ||| tiled ||| Mirror tiled ||| masterTiled ||| Full
   where
      tiled   = Tall nmaster delta tiledRatio
+     threeCol = ThreeCol nmaster delta (1/3)
      masterTiled = autoMaster nmaster (3/100) tiled
 
      -- The default number of windows in the master pane
@@ -52,7 +53,7 @@ layoutDev = avoidStruts $ tiled ||| Mirror tiled ||| masterTiled ||| Full
 
 myLayouts = onWorkspace "dev" layoutDev
             $ onWorkspace "comm" layoutComm
-            $ onWorkspace "net" layoutWeb
+            $ onWorkspace "net" layoutComm
             $ onWorkspace "work" layoutWeb
             $ onWorkspace "web" layoutWeb
             $ onWorkspace "music" layoutDev
