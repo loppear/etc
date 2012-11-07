@@ -4,6 +4,10 @@
 (add-to-list 'load-path "~/.emacs-extras")
 (add-to-list 'load-path "~/lib/expand-region.el")
 
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
 (push '(font-backend xft x) default-frame-alist)
 
 (require 'color-theme)
@@ -17,10 +21,6 @@
 (add-to-list '*textmate-project-roots* "setup.py" t)
 (add-to-list '*textmate-project-roots* "bin" t)
 (textmate-mode)
-
-(defun pyflakes-this-buffer ()
-  (interactive)
-  (compilation-start (concat "pyflakes " buffer-file-name) nil (lambda (mode) "*pyflakes*")))
 
 (require 'ido)
 (ido-mode t)
@@ -57,6 +57,8 @@
   (lambda ()
     (ibuffer-switch-to-saved-filter-groups "default")))
 
+
+(add-hook 'find-file-hook 'flycheck-mode)
 
 (scroll-bar-mode -1)
 
