@@ -73,6 +73,10 @@
 
 (add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
 
+(add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.component$" . php-mode))
+(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+
 (defun lo-tabs-mode ()
   (setq indent-tabs-mode t)
   (setq default-tab-width 4)
@@ -81,8 +85,10 @@
   )
 
 (add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
+(add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
 (add-hook 'php-mode-hook 'lo-tabs-mode)
 (add-hook 'js-mode-hook 'lo-tabs-mode)
+(add-hook 'javascript-mode-hook 'lo-tabs-mode)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -178,26 +184,25 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(comint-completion-addsuffix t)
+ '(comint-completion-autolist t)
+ '(comint-input-ignoredups t)
+ '(comint-move-point-for-output nil)
+ '(comint-scroll-show-maximum-output t)
+ '(comint-scroll-to-bottom-on-input t)
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(hg-incoming-repository "")
  '(hg-log-limit 30)
  '(hg-outgoing-repository "")
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
+ '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org")))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
- '(warning-minimum-level :error)
- ;; shell
- '(comint-scroll-to-bottom-on-input t)  ; always insert at the bottom
- '(comint-scroll-to-bottom-on-output nil) ; always add output at the bottom
- '(comint-scroll-show-maximum-output t) ; scroll to show max possible output
- '(comint-completion-autolist t)        ; show completion list when ambiguous
- '(comint-input-ignoredups t)           ; no duplicates in command history
- '(comint-completion-addsuffix t)       ; insert space/slash after file completion
- ;;
- '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
+ '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(warning-minimum-level :error))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -206,13 +211,13 @@
  '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
  '(diff-added ((t (:foreground "DarkGreen"))))
  '(diff-changed ((t (:foreground "MediumBlue"))))
- '(diff-context ((t (:foreground "LightSteelBlue"))))
- '(diff-file-header ((t (:foreground "White"))))
- '(diff-header ((t (:foreground "White"))))
- '(diff-hunk-header ((t (:foreground "White"))))
+ '(diff-context ((t (:foreground "Black"))))
+ '(diff-file-header ((t (:foreground "Red" :background "White"))))
+ '(diff-header ((t (:foreground "Red"))))
+ '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))))
  '(diff-index ((t (:foreground "Green"))))
  '(diff-nonexistent ((t (:foreground "DarkBlue"))))
- '(diff-removed ((t (:foreground "Red"))))
+ '(diff-removed ((t (:foreground "DarkMagenta"))))
  '(show-ws-tab ((t (:background "gray20"))))
  '(show-ws-trailing-whitespace ((t (:background "Gold"))))
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
