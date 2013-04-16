@@ -178,6 +178,9 @@
 ;; No splash screen!
 (setq inhibit-splash-screen t)
 
+;; Save session
+(desktop-save-mode 1)
+
 ;; Disable tool-bar
 (tool-bar-mode -1)
 
