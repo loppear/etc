@@ -54,7 +54,7 @@ layoutDev = avoidStruts $ threeCol ||| tiled ||| Mirror tiled ||| masterTiled ||
 myLayouts = onWorkspace "dev" layoutDev
             $ onWorkspace "comm" layoutComm
             $ onWorkspace "net" layoutComm
-            $ onWorkspace "work" layoutWeb
+            $ onWorkspace "work" layoutDev
             $ onWorkspace "web" layoutWeb
             $ onWorkspace "music" layoutDev
             $ avoidStruts (layoutHook defaultConfig)
@@ -119,7 +119,7 @@ myManageHook = composeAll
    ]
 
 
-myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans Mono:pixelsize=11'"
+myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans Mono:pixelsize=18'"
 
 -- Do it
 
