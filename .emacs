@@ -55,8 +55,6 @@
     (ibuffer-switch-to-saved-filter-groups "default")))
 
 
-(add-hook 'find-file-hook 'flycheck-mode)
-
 (scroll-bar-mode -1)
 
 ; Django templates
@@ -198,6 +196,7 @@
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
+ '(vc-follow-symlinks t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(warning-minimum-level :error))
 (custom-set-faces
@@ -373,4 +372,5 @@
 ;;(when
 ;;    (load
 ;;     (expand-file-name "~/.emacs.d/elpa/package.el"))
-;;  (package-initialize))
+;;  (package-initialize)
+;;  )
