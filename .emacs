@@ -10,9 +10,6 @@
 
 (push '(font-backend xft x) default-frame-alist)
 
-(require 'color-theme)
-(color-theme-charcoal-black)
-
 (require 'diff-mode-)
 
 ; (require 'ipython)
