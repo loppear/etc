@@ -81,6 +81,7 @@
 
 (add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
 (add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
+(add-hook 'django-html-mumamo-mode-hook 'lo-tabs-mode)
 (add-hook 'php-mode-hook 'lo-tabs-mode)
 (add-hook 'js-mode-hook 'lo-tabs-mode)
 (add-hook 'javascript-mode-hook 'lo-tabs-mode)
@@ -142,6 +143,12 @@
             (local-set-key "\C-cr" 'pycov2-refresh)
             ))
 (add-hook 'nxhtml-mumamo-mode-hook
+          (lambda ()
+            (local-set-key "\C-ca" 'nosetests-all)
+            (local-set-key "\C-cm" 'nosetests-module)
+            (local-set-key "\C-c." 'nosetests-one)
+            ))
+(add-hook 'coffee-mode-hook
           (lambda ()
             (local-set-key "\C-ca" 'nosetests-all)
             (local-set-key "\C-cm" 'nosetests-module)
@@ -317,6 +324,7 @@
 
   ;; CoffeeScript uses two spaces.
   (set (make-local-variable 'tab-width) 2)
+  (set (make-local-variable 'indent-tabs-mode) t)
 
   ;; *Messages* spam
   (setq coffee-debug-mode t)
@@ -324,11 +332,6 @@
   ;; Emacs key binding
   (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
 
-  ;; Compile '.coffee' files on every save
-  (add-hook 'after-save-hook
-      '(lambda ()
-         (when (string-match "\.coffee$" (buffer-name))
-          (coffee-compile-file))))
 )
 
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
