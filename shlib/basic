@@ -13,3 +13,5 @@ if-exists () {
         $1
     fi
 }
+
+alias coffeetojson="coffee --print --compile $1.coffee | sed '1s/^.//' | sed 's/  });/}/' | sed 's/\([^ \'\"].*[^ \'\"]\):/\"\1\":/' > $1.json"
