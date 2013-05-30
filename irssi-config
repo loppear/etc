@@ -3,7 +3,8 @@ servers = (
   { address = "eu.irc6.net"; chatnet = "IRCnet"; port = "6667"; },
   { address = "open.ircnet.net"; chatnet = "IRCnet"; port = "6667"; },
   { address = "irc.efnet.org"; chatnet = "EFNet"; port = "6667"; },
-  {
+  { address = "irc.freenode.net"; chatnet = "Freenode"; port = "6667"; autoconnect = "yes"},
+  { 
     address = "irc.undernet.org";
     chatnet = "Undernet";
     port = "6667";
@@ -16,7 +17,7 @@ servers = (
   },
   {
     address = "talk.google.com";
-    port="0";
+    port = "0";
     use_ssl = "yes";
     chatnet = "gmail";
     autoconnect = "yes";
@@ -45,10 +46,7 @@ chatnets = {
     realname = "Luke";
   };
   Undernet = { type = "IRC"; };
-  gmail = {
-      type = "XMPP";
-      nick = "loppear@gmail.com";
-    };
+  gmail = { type = "XMPP"; nick = "loppear@gmail.com"; };
 };
 
 channels = (
@@ -224,4 +222,5 @@ settings = {
     nick = "luke";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { theme = "xchat"; };
 };
