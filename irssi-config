@@ -45,12 +45,22 @@ chatnets = {
     username = "loppear";
     realname = "Luke";
   };
+  Freenode = {
+    type = "IRC";
+    nick = "LoppEar";
+    username = "loppear";
+    realname = "Luke";
+  };
   Undernet = { type = "IRC"; };
   gmail = { type = "XMPP"; nick = "loppear@gmail.com"; };
 };
 
 channels = (
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
+  { name = "#pycon"; chatnet = "freenode"; autojoin = "No"; },
+  { name = "#python"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#node.js"; chatnet = "freenode"; autojoin = "Yes"; },
+  { name = "#hypothes.is"; chatnet = "freenode"; autojoin = "Yes"; },
   { name = "#husi"; chatnet = "slashnet"; autojoin = "Yes"; }
 );
 
