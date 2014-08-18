@@ -58,13 +58,14 @@
 (scroll-bar-mode -1)
 
 ; Django templates
-(load "~/lib/nxhtml/autostart.el")
-(setq mumamo-background-colors nil)
-(add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-
+;(load "~/lib/nxhtml/autostart.el")
+;(setq mumamo-background-colors nil)
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+
+(autoload 'typescript-mode "TypeScript" nil t)
+(add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
 
 (add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
 
@@ -74,17 +75,14 @@
 
 (defun lo-tabs-mode ()
   (setq indent-tabs-mode t)
-  (setq default-tab-width 4)
+  (setq default-tab-width 2)
   (setq c-default-style "bsd"
-        c-basic-offset 4)
+        c-basic-offset 2)
   )
 
 (add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
 (add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
-(add-hook 'django-html-mumamo-mode-hook 'lo-tabs-mode)
 (add-hook 'php-mode-hook 'lo-tabs-mode)
-(add-hook 'js-mode-hook 'lo-tabs-mode)
-(add-hook 'javascript-mode-hook 'lo-tabs-mode)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -95,8 +93,8 @@
 (midnight-delay-set 'midnight-delay "9:50am")
 (setq clean-buffer-list-delay-general 5)
 
-(cua-mode t)
 (setq cua-enable-cua-keys nil)
+(cua-mode t)
 
 (column-number-mode 1)
 
@@ -184,6 +182,10 @@
 ;; Disable tool-bar
 (tool-bar-mode -1)
 
+
+(setq org-mobile-directory "/media/sf_luke/Dropbox/MobileOrg")
+
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -202,7 +204,8 @@
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(mumamo-submode-indent-offset 4)
- '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org")))
+ '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
+ '(org-directory "~/org")
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
@@ -299,6 +302,7 @@
 (setq org-hide-leading-stars t)
 (setq org-completion-use-ido t)
 (setq org-return-follows-link t)
+(setq org-refile-use-outline-path t)
 (setq org-log-done 'time)
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
@@ -312,6 +316,16 @@
 
       )
     )
+
+(setq org-capture-templates
+    '(
+      ("t" "Todo" entry (file+headline "~/org/things.org" "Tasks")
+         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
+      ("p" "Project" entry (file+headline "~/org/things.org" "Projects")
+         "* %^{Project} %^g\n%?\nAdded: %U")
+      ("a" "Agenda" entry (file+headline "~/org/things.org" "Agenda")
+         "* %?\n  %i\n  %a")
+      ))
 
 ;; Octave
 (autoload 'octave-mode "octave-mod" nil t)
@@ -327,7 +341,7 @@
 
   ;; CoffeeScript uses two spaces.
   (set (make-local-variable 'tab-width) 2)
-  (set (make-local-variable 'indent-tabs-mode) t)
+  (setq 'indent-tabs-mode nil)
 
   ;; *Messages* spam
   (setq coffee-debug-mode t)
@@ -352,11 +366,13 @@
 (global-set-key [(meta z)] 'textmate-find-in-project)
 (global-set-key [(meta shift z)] 'textmate-find-in-project-type)
 (global-set-key [(control q)] 'kill-this-buffer)
+(global-set-key [(control shift q)] 'quoted-insert)
 (global-set-key [(meta j)] 'lop-swap-window-to-first)
 (global-set-key [(meta shift j)] 'lop-swap-window)
 (global-set-key [f9] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-c <C-return>") 'cua-set-rectangle-mark)
 
 ;; effective emacs
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -369,6 +385,13 @@
 (global-set-key (kbd "C-c SPC") 'er/expand-region)
 
 (global-set-key (kbd "C-c s") 'magit-status)
+
+;; org-mode
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-agenda)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "<M-return>") 'org-insert-heading)
+(global-set-key (kbd "<C-return>") 'org-insert-heading-respect-content)
 
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
