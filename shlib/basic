@@ -15,3 +15,7 @@ if-exists () {
 }
 
 alias coffeetojson="coffee --print --compile $1.coffee | sed '1s/^.//' | sed 's/  });/}/' | sed 's/\([^ \'\"].*[^ \'\"]\):/\"\1\":/' > $1.json"
+
+function mkd() {
+         mkdir -p $1 && cd $1
+}
