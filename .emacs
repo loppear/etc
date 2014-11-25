@@ -10,7 +10,11 @@
 
 (push '(font-backend xft x) default-frame-alist)
 
-(load-theme 'zenburn t)
+(defun zenburn-init ()
+  (load-theme 'zenburn)
+)
+
+(add-hook 'after-init-hook 'zenburn-init)
 
 (require 'diff-mode-)
 
