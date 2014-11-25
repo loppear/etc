@@ -10,9 +10,13 @@
 
 (push '(font-backend xft x) default-frame-alist)
 
+(load-theme 'zenburn t)
+
 (require 'diff-mode-)
 
-; (require 'ipython)
+(require 'ipython)
+(setq py-python-command-args '("--pylab"))
+
 (require 'show-wspace)
 (require 'textmate)
 (add-to-list '*textmate-project-roots* "setup.py" t)
@@ -98,6 +102,8 @@
 
 (column-number-mode 1)
 
+
+
 ; use tab for indent or complete
 (defun smart-tab ()
   "This smart tab is minibuffer compliant: it acts as usual in
@@ -152,6 +158,7 @@
             (local-set-key "\C-cm" 'nosetests-module)
             (local-set-key "\C-c." 'nosetests-one)
             ))
+
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -334,7 +341,8 @@
 (autoload 'run-octave "octave-inf" nil t)
 
 ;; Coffeescript
-(require 'coffee-mode)
+;;(
+;;require 'coffee-mode)
 
 (defun coffee-custom ()
   "coffee-mode-hook"
@@ -381,6 +389,12 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
+
+;; comint
+(define-key comint-mode-map (kbd "M-") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
+(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
 
 (global-set-key (kbd "C-c SPC") 'er/expand-region)
 

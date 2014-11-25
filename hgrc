@@ -46,4 +46,7 @@ track.current = True
 pager = less -FRX
 attend = annotate, cat, diff, export, glog, log, qdiff, ll, difftip, diffdot
 
+[trusted]
+users = root
+
 %include ~/.hgrc.local
