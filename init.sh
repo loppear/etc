@@ -44,10 +44,12 @@ git clone https://github.com/muennich/urxvt-perls.git ~/lib/urxvt-perls
 mkdir -p ~/.xmonad/
 mkdir -p ~/.ssh/
 mkdir -p ~/.irssi/
+mkdir -p ~/.emacs.d
 
 ln -s $PWD/conkerorrc ~/.conkerorrc
 ln -s $PWD/.emacs ~/.emacs
 ln -s $PWD/.emacs-extras ~/.emacs-extras
+ln -s $PWD/elpa ~/.emacs.d/elpa
 ln -s $PWD/gnomerc ~/.gnomerc
 ln -s $PWD/hgrc ~/.hgrc
 ln -s $PWD/gitconfig ~/.gitconfig

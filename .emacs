@@ -10,6 +10,12 @@
 
 (push '(font-backend xft x) default-frame-alist)
 
+(defun zenburn-init ()
+  (load-theme 'zenburn)
+)
+
+(add-hook 'after-init-hook 'zenburn-init)
+
 (require 'diff-mode-)
 
 (require 'ipython)
@@ -100,6 +106,8 @@
 
 (column-number-mode 1)
 
+
+
 ; use tab for indent or complete
 (defun smart-tab ()
   "This smart tab is minibuffer compliant: it acts as usual in
@@ -154,6 +162,7 @@
             (local-set-key "\C-cm" 'nosetests-module)
             (local-set-key "\C-c." 'nosetests-one)
             ))
+
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
