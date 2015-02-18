@@ -12,7 +12,9 @@
 
 (require 'diff-mode-)
 
-; (require 'ipython)
+(require 'ipython)
+(setq py-python-command-args '("--pylab"))
+
 (require 'show-wspace)
 (require 'textmate)
 (add-to-list '*textmate-project-roots* "setup.py" t)
@@ -182,9 +184,10 @@
 ;; Disable tool-bar
 (tool-bar-mode -1)
 
-
 (setq org-mobile-directory "/media/sf_luke/Dropbox/MobileOrg")
 
+(setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -203,6 +206,8 @@
  '(hg-outgoing-repository "")
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
+ '(js2-basic-offset 2)
+ '(c-basic-offset 2)
  '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
  '(org-directory "~/org")
@@ -334,7 +339,8 @@
 (autoload 'run-octave "octave-inf" nil t)
 
 ;; Coffeescript
-(require 'coffee-mode)
+;;(
+;;require 'coffee-mode)
 
 (defun coffee-custom ()
   "coffee-mode-hook"
@@ -381,6 +387,12 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
+
+;; comint
+(define-key comint-mode-map (kbd "M-") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
+(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
 
 (global-set-key (kbd "C-c SPC") 'er/expand-region)
 

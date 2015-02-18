@@ -1,4 +1,4 @@
-Emacs.font: Inconsolata-9
+Emacs.font: Inconsolata-12
 
 URxvt.perl-ext-common:  default,url-select,clipboard
 URxvt.keysym.M-u:    perl:url-select:select_next
