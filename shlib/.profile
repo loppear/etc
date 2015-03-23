@@ -1,4 +1,5 @@
 . ./basic
+. ./history
 . ./virtualenv
 . ./work
 . ./svn
