@@ -19,3 +19,5 @@ alias coffeetojson="coffee --print --compile $1.coffee | sed '1s/^.//' | sed 's/
 function mkd() {
          mkdir -p $1 && cd $1
 }
+
+alias clean-autosave="find ./ -name '.#*' -print0 | xargs -0 rm"

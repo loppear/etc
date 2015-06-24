@@ -194,9 +194,10 @@
 ;; Disable tool-bar
 (tool-bar-mode -1)
 
-
 (setq org-mobile-directory "/media/sf_luke/Dropbox/MobileOrg")
 
+(setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -216,6 +217,8 @@
  '(hg-outgoing-repository "")
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
+ '(js2-basic-offset 2)
+ '(c-basic-offset 2)
  '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
  '(org-directory "~/org" t)
