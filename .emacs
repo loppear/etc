@@ -141,6 +141,7 @@
 (setq nose-use-verbose nil)
 (add-to-list 'nose-project-names "../bin/nosetests")
 (add-to-list 'nose-project-names "../bin/test")
+(add-to-list 'nose-project-names "../../bin/test")
 (add-to-list 'nose-project-root-files "manage.py")
 (add-to-list 'nose-project-root-files "build.xml")
 (add-hook 'python-mode-hook
@@ -198,16 +199,17 @@
 
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(comint-completion-addsuffix t)
  '(comint-completion-autolist t)
  '(comint-input-ignoredups t)
  '(comint-move-point-for-output nil)
  '(comint-scroll-show-maximum-output t)
  '(comint-scroll-to-bottom-on-input t)
+ '(custom-safe-themes (quote ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(hg-incoming-repository "")
  '(hg-log-limit 30)
@@ -216,18 +218,18 @@
  '(indent-tabs-mode nil)
  '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
- '(org-directory "~/org")
+ '(org-directory "~/org" t)
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tabbar-mode t)
- '(vc-follow-symlinks t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(vc-follow-symlinks t)
  '(warning-minimum-level :error))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
  '(diff-added ((t (:foreground "DarkGreen"))))
  '(diff-changed ((t (:foreground "MediumBlue"))))
