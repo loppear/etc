@@ -28,10 +28,6 @@ graphlog =
 bookmarks =
 pager =
 fetch =
-mercurial_keyring =
-hggit = /home/luke/lib/hggit/hggit/
-svn = /home/luke/lib/hgsubversion/hgsubversion
-histedit = /home/luke/lib/histedit/hg_histedit.py
 
 [merge-tools]
 meld.args = $base $local $other

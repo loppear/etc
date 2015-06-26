@@ -1,1 +1,0 @@
-../../lib/coffee-mode/coffee-mode.el

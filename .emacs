@@ -38,7 +38,6 @@
 (put 'narrow-to-defun 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-(require 'mercurial)
 
 (require 'ibuffer)
 (setq ibuffer-saved-filter-groups

@@ -1,1 +1,0 @@
-../../lib/pycoverage.el/pycov2.el
