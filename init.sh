@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 
-sudo apt-get install emacs24 rxvt-unicode xsel xmonad ipython mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl irssi irssi-plugin-xmpp python-pip
+sudo apt-get install emacs24 rxvt-unicode xsel xmonad ipython mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl irssi irssi-plugin-xmpp python-pip inotify-tools
 
 mkdir -p ~/lib/
 hg clone http://bitbucket.org/durin42/dotfiles ~/lib/durin42-dotfiles
@@ -40,6 +40,6 @@ pushd ~/etc/shlib > /dev/null
 
 popd > /dev/null
 
-export PATH=\$PATH:/var/lib/gems/1.8/bin
+export PATH=\$PATH:~/.gem/ruby/2.1.0/bin
 export PATH=\$PATH:~/bin
 EOF

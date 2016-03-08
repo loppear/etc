@@ -68,8 +68,8 @@
 ;(load "~/lib/nxhtml/autostart.el")
 ;(setq mumamo-background-colors nil)
 (autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 
 (autoload 'typescript-mode "TypeScript" nil t)
 (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
@@ -80,9 +80,16 @@
 (add-to-list 'auto-mode-alist '("\\.component$" . php-mode))
 (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
 
+(require 'web-mode)
+
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+
 (defun lo-tabs-mode ()
-  (setq indent-tabs-mode t)
   (setq default-tab-width 2)
+  (setq indent-tabs-mode nil)
+  (setq web-mode-markup-indent-offset 2)
+  (setq js-indent-level 2)  
   (setq c-default-style "bsd"
         c-basic-offset 2)
   )
@@ -90,6 +97,7 @@
 (add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
 (add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
 (add-hook 'php-mode-hook 'lo-tabs-mode)
+(add-hook 'js-mode-hook 'lo-tabs-mode)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)

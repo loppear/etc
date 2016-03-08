@@ -20,3 +20,12 @@ reset-data() {
         echo 'No data database to reset\n'
   fi
 }
+
+waitand() {
+  dir=$1
+  shift
+  while true; do
+    $@
+    inotifywait -r -e close_write,moved_to,create $dir
+  done
+}
