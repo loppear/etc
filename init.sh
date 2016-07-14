@@ -1,7 +1,10 @@
 #!/bin/sh
 #
 
-sudo apt-get install emacs24 rxvt-unicode xsel xmonad ipython mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl irssi irssi-plugin-xmpp python-pip inotify-tools
+sudo apt-get install emacs24 ipython  mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl inotify-tools tmux
+
+# nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
 mkdir -p ~/lib/
 hg clone http://bitbucket.org/durin42/dotfiles ~/lib/durin42-dotfiles
