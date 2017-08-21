@@ -1,10 +1,2 @@
-Emacs.font: Inconsolata-12
+Emacs.font: Inconsolata-13
 
-URxvt.perl-ext-common:  default,url-select,clipboard
-URxvt.keysym.M-u:    perl:url-select:select_next
-URxvt.keysym.M-C-u:    perl:url-select:select_next
-URxvt.url-select.launcher:   /usr/bin/firefox
-URxvt.url-select.underline: true
-URxvt.url-select.button: 1
-URxvt.keysym.M-C-y:   perl:clipboard:paste
-URxvt.keysym.M-w:   perl:clipboard:copy

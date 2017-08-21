@@ -1,16 +1,14 @@
 #!/bin/sh
 #
 
-sudo apt-get install emacs24 ipython  mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl inotify-tools tmux
+sudo apt-get install xmonad rxvt-unicode emacs24 ipython  mercurial git magit js2-mode python-mode ttf-dejavu fonts-inconsolata curl inotify-tools tmux chromium
 
 # nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
 mkdir -p ~/lib/
 hg clone http://bitbucket.org/durin42/dotfiles ~/lib/durin42-dotfiles
-hg clone http://bitbucket.org/durin42/nosemacs ~/lib/nosemacs
 git clone https://github.com/magnars/expand-region.el.git ~/lib/expand-region.el
-git clone https://github.com/muennich/urxvt-perls.git ~/lib/urxvt-perls
 
 mkdir -p ~/.xmonad/
 mkdir -p ~/.ssh/
@@ -31,8 +29,6 @@ ln -s $PWD/ssh-config ~/.ssh/config
 ln -s $PWD/irssi-config ~/.irssi/config
 ln -s $PWD/irssi-startup ~/.irssi/startup
 
-sudo ln -s ~/lib/urxvt-perls/clipboard /usr/lib/urxvt/perl/
-sudo ln -s ~/lib/urxvt-perls/url-select /usr/lib/urxvt/perl/
 sudo ln -s $PWD/xmonad.session /usr/share/gnome-session/sessions/xmonad.session
 sudo ln -s $PWD/xmonad-unity-session.desktop /usr/share/xsessions/xmonad-unity-session.desktop
 
@@ -45,4 +41,5 @@ popd > /dev/null
 
 export PATH=\$PATH:~/.gem/ruby/2.1.0/bin
 export PATH=\$PATH:~/bin
+. .nvm/nvm.sh
 EOF
