@@ -119,7 +119,7 @@ myManageHook = composeAll
    ]
 
 
-myTerminal = "urxvt -tn xterm -tr -tint grey -sh 40 +sb -rv -fn 'xft:DejaVu Sans Mono:pixelsize=14'"
+myTerminal = "urxvt -tn xterm -sh 40 +sb -rv -fade 15 -bg darkgray"
 
 -- Do it
 

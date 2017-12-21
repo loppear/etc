@@ -1,2 +1,3 @@
 Emacs.font: Inconsolata-13
 
+URxvt.font: xft:DejaVu Sans Mono:size=13

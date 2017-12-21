@@ -31,13 +31,11 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t)
 
-(require 'autopair)
-(autopair-global-mode 1)
-(setq autopair-autowrap t)
 
 (put 'narrow-to-defun 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+(electric-pair-mode)
 
 (require 'ibuffer)
 (setq ibuffer-saved-filter-groups
@@ -82,8 +80,13 @@
 
 (require 'web-mode)
 
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+
+(add-hook 'web-mode-hook
+  (lambda ()
+    (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (defun lo-tabs-mode ()
   (setq default-tab-width 2)
@@ -98,6 +101,7 @@
 (add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
 (add-hook 'php-mode-hook 'lo-tabs-mode)
 (add-hook 'js-mode-hook 'lo-tabs-mode)
+(add-hook 'web-mode-hook 'lo-tabs-mode)
 
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
@@ -144,32 +148,32 @@
 
 (require 'linum)
 
-(require 'nose)
-(setq nose-use-verbose nil)
-(add-to-list 'nose-project-names "../bin/nosetests")
-(add-to-list 'nose-project-names "../bin/test")
-(add-to-list 'nose-project-names "../../bin/test")
-(add-to-list 'nose-project-root-files "manage.py")
-(add-to-list 'nose-project-root-files "build.xml")
-(add-hook 'python-mode-hook
-          (lambda ()
-            (local-set-key "\C-ca" 'nosetests-all)
-            (local-set-key "\C-cm" 'nosetests-module)
-            (local-set-key "\C-c." 'nosetests-one)
-            (local-set-key "\C-cr" 'pycov2-refresh)
-            ))
-(add-hook 'nxhtml-mumamo-mode-hook
-          (lambda ()
-            (local-set-key "\C-ca" 'nosetests-all)
-            (local-set-key "\C-cm" 'nosetests-module)
-            (local-set-key "\C-c." 'nosetests-one)
-            ))
-(add-hook 'coffee-mode-hook
-          (lambda ()
-            (local-set-key "\C-ca" 'nosetests-all)
-            (local-set-key "\C-cm" 'nosetests-module)
-            (local-set-key "\C-c." 'nosetests-one)
-            ))
+;;(require 'nose)
+;;(setq nose-use-verbose nil)
+;;(add-to-list 'nose-project-names "../bin/nosetests")
+;;(add-to-list 'nose-project-names "../bin/test")
+;;(add-to-list 'nose-project-names "../../bin/test")
+;;(add-to-list 'nose-project-root-files "manage.py")
+;;(add-to-list 'nose-project-root-files "build.xml")
+;;(add-hook 'python-mode-hook
+;;          (lambda ()
+;;            (local-set-key "\C-ca" 'nosetests-all)
+;;            (local-set-key "\C-cm" 'nosetests-module)
+;;            (local-set-key "\C-c." 'nosetests-one)
+;;            (local-set-key "\C-cr" 'pycov2-refresh)
+;;            ))
+;;(add-hook 'nxhtml-mumamo-mode-hook
+;;          (lambda ()
+;;            (local-set-key "\C-ca" 'nosetests-all)
+;;            (local-set-key "\C-cm" 'nosetests-module)
+;;            (local-set-key "\C-c." 'nosetests-one)
+;;            ))
+;;(add-hook 'coffee-mode-hook
+;;          (lambda ()
+;;            (local-set-key "\C-ca" 'nosetests-all)
+;;            (local-set-key "\C-cm" 'nosetests-module)
+;;            (local-set-key "\C-c." 'nosetests-one)
+;;            ))
 
 
 (require 'ansi-color)
@@ -211,13 +215,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 2)
  '(comint-completion-addsuffix t)
  '(comint-completion-autolist t)
  '(comint-input-ignoredups t)
  '(comint-move-point-for-output nil)
  '(comint-scroll-show-maximum-output t)
  '(comint-scroll-to-bottom-on-input t)
- '(custom-safe-themes (quote ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
+ '(custom-safe-themes
+   (quote
+    ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(hg-incoming-repository "")
  '(hg-log-limit 30)
@@ -225,12 +232,14 @@
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(js2-basic-offset 2)
- '(c-basic-offset 2)
+ '(js2-mode-show-parse-errors nil)
+ '(js2-mode-show-strict-warnings nil)
  '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
  '(org-directory "~/org" t)
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
+ '(split-height-threshold 120)
  '(tabbar-mode t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(vc-follow-symlinks t)
@@ -241,17 +250,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
- '(diff-added ((t (:foreground "DarkGreen"))))
- '(diff-changed ((t (:foreground "MediumBlue"))))
- '(diff-context ((t (:foreground "Black"))))
- '(diff-file-header ((t (:foreground "Red" :background "White"))))
- '(diff-header ((t (:foreground "Red"))))
- '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))))
- '(diff-index ((t (:foreground "Green"))))
- '(diff-nonexistent ((t (:foreground "DarkBlue"))))
- '(diff-removed ((t (:foreground "DarkMagenta"))))
+ '(diff-added ((t (:foreground "DarkGreen"))) t)
+ '(diff-changed ((t (:foreground "MediumBlue"))) t)
+ '(diff-context ((t (:foreground "Black"))) t)
+ '(diff-file-header ((t (:foreground "Red" :background "White"))) t)
+ '(diff-header ((t (:foreground "Red"))) t)
+ '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))) t)
+ '(diff-index ((t (:foreground "Green"))) t)
+ '(diff-nonexistent ((t (:foreground "DarkBlue"))) t)
+ '(diff-removed ((t (:foreground "DarkMagenta"))) t)
  '(show-ws-tab ((t (:background "gray20"))))
  '(show-ws-trailing-whitespace ((t (:background "Gold"))))
+ '(split-height-threshold 120)
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
@@ -360,22 +370,22 @@
 ;;(
 ;;require 'coffee-mode)
 
-(defun coffee-custom ()
-  "coffee-mode-hook"
-
-  ;; CoffeeScript uses two spaces.
-  (set (make-local-variable 'tab-width) 2)
-  (setq 'indent-tabs-mode nil)
-
-  ;; *Messages* spam
-  (setq coffee-debug-mode t)
-
-  ;; Emacs key binding
-  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-
-)
-
-(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+;;(defun coffee-custom ()
+;;  "coffee-mode-hook"
+;; 
+;;  ;; CoffeeScript uses two spaces.
+;;  (set (make-local-variable 'tab-width) 2)
+;;  (setq 'indent-tabs-mode nil)
+;; 
+;;  ;; *Messages* spam
+;;  (setq coffee-debug-mode t)
+;; 
+;;  ;; Emacs key binding
+;;  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+;; 
+;;)
+;; 
+;;(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 
 ;; Keybindings
