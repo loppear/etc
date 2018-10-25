@@ -43,6 +43,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 (electric-pair-mode)
+(dumb-jump-mode)
 
 (require 'ibuffer)
 (setq ibuffer-saved-filter-groups
@@ -69,12 +70,20 @@
 
 (scroll-bar-mode -1)
 
+;; Node
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(require 'flow-minor-mode)
+(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
+
 ; Django templates
 ;(load "~/lib/nxhtml/autostart.el")
 ;(setq mumamo-background-colors nil)
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+;;(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
 (autoload 'typescript-mode "TypeScript" nil t)
 (add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
@@ -126,22 +135,6 @@
 
 
 
-; use tab for indent or complete
-(defun smart-tab ()
-  "This smart tab is minibuffer compliant: it acts as usual in
-    the minibuffer. Else, if mark is active, indents region. Else if
-    point is at the end of a symbol, expands it. Else indents the
-    current line."
-  (interactive)
-  (if (minibufferp)
-      (unless (minibuffer-complete)
-        (dabbrev-expand nil))
-    (if mark-active
-        (indent-region (region-beginning)
-                       (region-end))
-      (if (looking-at "\\_>")
-          (dabbrev-expand nil)
-        (indent-for-tab-command)))))
 
 ;; Document modes
 (require 'rst)
@@ -196,7 +189,7 @@
 
 ;; Random
 
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+;;(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
 (setq frame-background-mode 'dark)
 
@@ -231,7 +224,7 @@
  '(comint-scroll-to-bottom-on-input t)
  '(custom-safe-themes
    (quote
-    ("9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
+    ("0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
  '(fringe-mode (quote (5 . 5)) nil (fringe))
  '(hg-incoming-repository "")
  '(hg-log-limit 30)
@@ -260,17 +253,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
- '(diff-added ((t (:foreground "DarkGreen"))) t)
- '(diff-changed ((t (:foreground "MediumBlue"))) t)
- '(diff-context ((t (:foreground "Black"))) t)
- '(diff-file-header ((t (:foreground "Red" :background "White"))) t)
- '(diff-header ((t (:foreground "Red"))) t)
- '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))) t)
- '(diff-index ((t (:foreground "Green"))) t)
- '(diff-nonexistent ((t (:foreground "DarkBlue"))) t)
- '(diff-removed ((t (:foreground "DarkMagenta"))) t)
- '(show-ws-tab ((t (:background "gray20"))))
- '(show-ws-trailing-whitespace ((t (:background "Gold"))))
+ '(diff-added ((t (:foreground "DarkGreen"))))
+ '(diff-changed ((t (:foreground "MediumBlue"))))
+ '(diff-context ((t (:foreground "Black"))))
+ '(diff-file-header ((t (:foreground "Red" :background "White"))))
+ '(diff-header ((t (:foreground "Red"))))
+ '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))))
+ '(diff-index ((t (:foreground "Green"))))
+ '(diff-nonexistent ((t (:foreground "DarkBlue"))))
+ '(diff-removed ((t (:foreground "DarkMagenta"))))
+ '(show-trailing-whitespace ((t (:background "Gold"))))
  '(split-height-threshold 120)
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
@@ -337,6 +329,19 @@
      "Window '%s' is normal")
    (current-buffer)))
 
+
+;; Customizing colors used in diff mode
+(defun custom-diff-colors ()
+  "update the colors for diff faces"
+  (set-face-attribute
+   'diff-added nil :foreground "grey")
+  (set-face-attribute
+   'diff-removed nil :foreground "grey")
+  (set-face-attribute
+   'diff-changed nil :foreground "purple"))
+;;  (set-face-attribute
+;;   'magit-diff-hunk-header nil :foreground "black")
+(eval-after-load "diff-mode" '(custom-diff-colors))
 
 ;; Org-mode
 
@@ -405,18 +410,16 @@
 (global-set-key "\C-y" 'clipboard-yank)
 (global-set-key "\C-xp" 'select-previous-window)
 (global-set-key "\C-xo" 'other-window)
-(global-set-key [tab] 'smart-tab)
-(global-set-key [(control t)] 'textmate-goto-symbol)
-(global-set-key [(meta z)] 'textmate-find-in-project)
-(global-set-key [(meta shift z)] 'textmate-find-in-project-type)
 (global-set-key [(control q)] 'kill-this-buffer)
 (global-set-key [(control shift q)] 'quoted-insert)
-(global-set-key [(meta j)] 'lop-swap-window-to-first)
-(global-set-key [(meta shift j)] 'lop-swap-window)
 (global-set-key [f9] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c <C-return>") 'cua-set-rectangle-mark)
+
+(global-set-key "\M-j" 'dumb-jump-quick-look)
+(global-set-key (kbd "C-M-j") 'dumb-jump-go)
+
 
 ;; effective emacs
 (global-set-key "\C-x\C-m" 'execute-extended-command)
