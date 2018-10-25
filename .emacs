@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (server-start)
 (global-auto-revert-mode)
 
@@ -5,27 +12,27 @@
 (add-to-list 'load-path "~/lib/expand-region.el")
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+;;                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 (push '(font-backend xft x) default-frame-alist)
 
 (defun zenburn-init ()
   (load-theme 'zenburn)
 )
-
 (add-hook 'after-init-hook 'zenburn-init)
 
-(require 'diff-mode-)
+;;(require 'diff-mode-)
+(autoload 'vc-git-root "vc-git")
 
 (require 'ipython)
 (setq py-python-command-args '("--pylab"))
 
-(require 'show-wspace)
-(require 'textmate)
-(add-to-list '*textmate-project-roots* "setup.py" t)
-(add-to-list '*textmate-project-roots* "bin" t)
-(textmate-mode)
+;;(require 'show-wspace)
+
+;;(require 'smart-tab)
+;;(global-smart-tab-mode 1)
 
 (require 'ido)
 (ido-mode t)
@@ -237,6 +244,9 @@
  '(mumamo-submode-indent-offset 4)
  '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
  '(org-directory "~/org" t)
+ '(package-selected-packages
+   (quote
+    (dumb-jump ag projectile smart-tab magit magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(split-height-threshold 120)
@@ -361,10 +371,10 @@
       ))
 
 ;; Octave
-(autoload 'octave-mode "octave-mod" nil t)
-(setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
-(autoload 'run-octave "octave-inf" nil t)
+;;(autoload 'octave-mode "octave-mod" nil t)
+;;(setq auto-mode-alist
+;;      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+;;(autoload 'run-octave "octave-inf" nil t)
 
 ;; Coffeescript
 ;;(
@@ -433,13 +443,6 @@
 (global-set-key (kbd "<M-return>") 'org-insert-heading)
 (global-set-key (kbd "<C-return>") 'org-insert-heading-respect-content)
 
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-;;(when
-;;    (load
-;;     (expand-file-name "~/.emacs.d/elpa/package.el"))
-;;  (package-initialize)
-;;  )
+
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
