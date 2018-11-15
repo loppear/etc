@@ -75,6 +75,19 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(setq-default flycheck-temp-prefix ".flycheck")
+
+
 (require 'flow-minor-mode)
 (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 
@@ -239,7 +252,7 @@
  '(org-directory "~/org" t)
  '(package-selected-packages
    (quote
-    (dumb-jump ag projectile smart-tab magit magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell)))
+    (json-mode flycheck dumb-jump ag projectile smart-tab magit magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(split-height-threshold 120)
