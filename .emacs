@@ -200,35 +200,6 @@
 
 ;; Org-mode
 
-(setq org-directory "~/org/")
-(setq org-default-notes-file "~/org/notes.org")
-(setq org-hide-leading-stars t)
-(setq org-completion-use-ido t)
-(setq org-return-follows-link t)
-(setq org-refile-use-outline-path t)
-(setq org-log-done 'time)
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(add-hook 'remember-mode-hook 'org-remember-apply-template)
-
-(setq org-remember-templates
-    '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "things.org" "Tasks")
-      ("Journal"   ?j "** %^{Head Line} %U %^g\n%i%?"  "journal.org")
-      ("Clipboard" ?c "** %^{Head Line} %U %^g\n%c\n%?"  "journal.org")
-      ("Review" ?r "** %t\n%[~/org/.daily_review.txt]\n" "journal.org")
-
-      )
-    )
-
-(setq org-capture-templates
-    '(
-      ("t" "Todo" entry (file+headline "~/org/things.org" "Tasks")
-         "* TODO %^{Brief Description} %^g\n%?\nAdded: %U")
-      ("p" "Project" entry (file+headline "~/org/things.org" "Projects")
-         "* %^{Project} %^g\n%?\nAdded: %U")
-      ("a" "Agenda" entry (file+headline "~/org/things.org" "Agenda")
-         "* %?\n  %i\n  %a")
-      ))
 
 
 ;; Keybindings
@@ -261,10 +232,6 @@
 
 ;; org-mode
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c c") 'org-agenda)
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "<M-return>") 'org-insert-heading)
-(global-set-key (kbd "<C-return>") 'org-insert-heading-respect-content)
 
 
 (projectile-mode +1)
