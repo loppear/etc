@@ -9,30 +9,16 @@
 (global-auto-revert-mode)
 
 (add-to-list 'load-path "~/.emacs-extras")
-(add-to-list 'load-path "~/lib/expand-region.el")
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;;                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")))
-
-(push '(font-backend xft x) default-frame-alist)
+(add-to-list 'package-archives
+	                  '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 (defun zenburn-init ()
   (load-theme 'zenburn)
 )
 (add-hook 'after-init-hook 'zenburn-init)
 
-;;(require 'diff-mode-)
 (autoload 'vc-git-root "vc-git")
-
-(require 'ipython)
-(setq py-python-command-args '("--pylab"))
-
-;;(require 'show-wspace)
-
-;;(require 'smart-tab)
-;;(global-smart-tab-mode 1)
 
 (require 'ido)
 (ido-mode t)
@@ -70,53 +56,6 @@
 
 (scroll-bar-mode -1)
 
-;; Node
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(javascript-jshint)))
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(json-jsonlist)))
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-(setq-default flycheck-temp-prefix ".flycheck")
-
-
-(require 'flow-minor-mode)
-(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
-
-; Django templates
-;(load "~/lib/nxhtml/autostart.el")
-;(setq mumamo-background-colors nil)
-;;(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
-
-(autoload 'typescript-mode "TypeScript" nil t)
-(add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
-
-(add-to-list 'auto-mode-alist '("\\.wsgi$" . python-mode))
-
-(add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.component$" . php-mode))
-(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
-
-(require 'web-mode)
-
-(add-to-list 'auto-mode-alist '("\\.ejs\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
-(add-hook 'web-mode-hook
-  (lambda ()
-    (local-set-key (kbd "RET") 'newline-and-indent)))
-
 (defun lo-tabs-mode ()
   (setq default-tab-width 2)
   (setq indent-tabs-mode nil)
@@ -126,20 +65,8 @@
         c-basic-offset 2)
   )
 
-(add-hook 'nxhtml-mumamo-mode-hook 'lo-tabs-mode)
-(add-hook 'nxhtml-nxhtml-mode-hook 'lo-tabs-mode)
-(add-hook 'php-mode-hook 'lo-tabs-mode)
-(add-hook 'js-mode-hook 'lo-tabs-mode)
-(add-hook 'web-mode-hook 'lo-tabs-mode)
-
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
-
-(require 'expand-region)
-
-(require 'midnight)
-(midnight-delay-set 'midnight-delay "9:50am")
-(setq clean-buffer-list-delay-general 5)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode t)
@@ -161,48 +88,7 @@
 
 (require 'linum)
 
-;;(require 'nose)
-;;(setq nose-use-verbose nil)
-;;(add-to-list 'nose-project-names "../bin/nosetests")
-;;(add-to-list 'nose-project-names "../bin/test")
-;;(add-to-list 'nose-project-names "../../bin/test")
-;;(add-to-list 'nose-project-root-files "manage.py")
-;;(add-to-list 'nose-project-root-files "build.xml")
-;;(add-hook 'python-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            (local-set-key "\C-cr" 'pycov2-refresh)
-;;            ))
-;;(add-hook 'nxhtml-mumamo-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            ))
-;;(add-hook 'coffee-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            ))
 
-
-(require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-
-;; Shell
-
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-;; Random
-
-;;(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 
 (setq frame-background-mode 'dark)
 
@@ -216,12 +102,8 @@
 (desktop-save-mode 1)
 
 ;; Disable tool-bar
-(tool-bar-mode -1)
+;; (tool-bar-mode -1)
 
-(setq org-mobile-directory "/media/sf_luke/Dropbox/MobileOrg")
-
-(setq auto-save-file-name-transforms
-          `((".*" ,temporary-file-directory t)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -229,65 +111,25 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
- '(comint-completion-addsuffix t)
- '(comint-completion-autolist t)
- '(comint-input-ignoredups t)
- '(comint-move-point-for-output nil)
- '(comint-scroll-show-maximum-output t)
- '(comint-scroll-to-bottom-on-input t)
  '(custom-safe-themes
    (quote
-    ("0c32e4f0789f567a560be625f239ee9ec651e524e46a4708eb4aba3b9cdc89c5" "9dae95cdbed1505d45322ef8b5aa90ccb6cb59e0ff26fef0b8f411dfc416c552" default)))
- '(fringe-mode (quote (5 . 5)) nil (fringe))
- '(hg-incoming-repository "")
- '(hg-log-limit 30)
- '(hg-outgoing-repository "")
+    ("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" default)))
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(js2-basic-offset 2)
  '(js2-mode-show-parse-errors nil)
  '(js2-mode-show-strict-warnings nil)
- '(mumamo-submode-indent-offset 4)
- '(org-agenda-files (quote ("~/org/things.org" "~/org/notes.org" "~/")))
- '(org-directory "~/org" t)
  '(package-selected-packages
    (quote
-    (json-mode flycheck dumb-jump ag projectile smart-tab magit magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell)))
+    (json-mode dumb-jump ag projectile smart-tab magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell org-roam)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(split-height-threshold 120)
  '(tabbar-mode t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(vc-follow-symlinks t)
- '(warning-minimum-level :error))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "Grey15" :foreground "Grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
- '(diff-added ((t (:foreground "DarkGreen"))))
- '(diff-changed ((t (:foreground "MediumBlue"))))
- '(diff-context ((t (:foreground "Black"))))
- '(diff-file-header ((t (:foreground "Red" :background "White"))))
- '(diff-header ((t (:foreground "Red"))))
- '(diff-hunk-header ((t (:foreground "White" :background "Salmon"))))
- '(diff-index ((t (:foreground "Green"))))
- '(diff-nonexistent ((t (:foreground "DarkBlue"))))
- '(diff-removed ((t (:foreground "DarkMagenta"))))
- '(show-trailing-whitespace ((t (:background "Gold"))))
- '(split-height-threshold 120)
- '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
- '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
-
-;; h/t Augie
-;;(add-hook 'python-mode-hook
-;;          (lambda()
-;;            (add-hook 'write-file-functions
-;;                      '(lambda ()
-;;                         (whitespace-cleanup)
-;;                         nil))
-;;          ))
+ '(warning-minimum-level :error)
+ )
 (setq require-final-newline t)
 
 ;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
@@ -388,33 +230,6 @@
          "* %?\n  %i\n  %a")
       ))
 
-;; Octave
-;;(autoload 'octave-mode "octave-mod" nil t)
-;;(setq auto-mode-alist
-;;      (cons '("\\.m$" . octave-mode) auto-mode-alist))
-;;(autoload 'run-octave "octave-inf" nil t)
-
-;; Coffeescript
-;;(
-;;require 'coffee-mode)
-
-;;(defun coffee-custom ()
-;;  "coffee-mode-hook"
-;; 
-;;  ;; CoffeeScript uses two spaces.
-;;  (set (make-local-variable 'tab-width) 2)
-;;  (setq 'indent-tabs-mode nil)
-;; 
-;;  ;; *Messages* spam
-;;  (setq coffee-debug-mode t)
-;; 
-;;  ;; Emacs key binding
-;;  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-;; 
-;;)
-;; 
-;;(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
-
 
 ;; Keybindings
 
@@ -441,14 +256,6 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
-
-;; comint
-(define-key comint-mode-map (kbd "M-") 'comint-next-input)
-(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
-(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
-(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
-
-(global-set-key (kbd "C-c SPC") 'er/expand-region)
 
 (global-set-key (kbd "C-c s") 'magit-status)
 
