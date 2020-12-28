@@ -198,8 +198,19 @@
 ;;   'magit-diff-hunk-header nil :foreground "black")
 (eval-after-load "diff-mode" '(custom-diff-colors))
 
-;; Org-mode
+;; Org-mode & Org-roam
 
+(setq org-roam-directory "~/org-roam")
+(add-hook 'after-init-hook 'org-roam-mode)
+
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+	 #'org-roam-capture--get-point
+	 "* %?"
+	 :file-name "daily/%<%Y-%m-%d>"
+	          :head "#+title: %<%Y-%m-%d>\n\n")))
 
 
 ;; Keybindings
@@ -209,8 +220,8 @@
 (global-set-key "\C-y" 'clipboard-yank)
 (global-set-key "\C-xp" 'select-previous-window)
 (global-set-key "\C-xo" 'other-window)
-(global-set-key [(control q)] 'kill-this-buffer)
-(global-set-key [(control shift q)] 'quoted-insert)
+(global-set-key [(control shift q)] 'kill-this-buffer)
+(global-set-key [(control alt q)] 'quoted-insert)
 (global-set-key [f9] 'toggle-window-dedicated)
 (global-set-key "\C-m" 'indent-new-comment-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -229,9 +240,14 @@
 
 
 (global-set-key (kbd "C-c s") 'magit-status)
+(global-set-key (kbd "C-c TAB") 'completion-at-point)
 
 ;; org-mode
-(global-set-key (kbd "C-c c") 'org-capture)
+;; (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c n") 'org-roam-find-file)
+(global-set-key (kbd "C-c d") 'org-roam-dailies-find-date)
+(define-key org-roam-mode-map "C-c i" `org-roam-insert)
+(define-key org-roam-mode-map "C-c t" `org-roam-tag-add)
 
 
 (projectile-mode +1)
