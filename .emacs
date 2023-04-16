@@ -13,17 +13,23 @@
 	                  '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
+(eval-when-compile
+  (require 'use-package))
+
 (defun zenburn-init ()
+  (setq zenburn-use-variable-pitch t)
+  (setq zenburn-scale-org-headings t)
   (load-theme 'zenburn)
 )
 (add-hook 'after-init-hook 'zenburn-init)
 
 (autoload 'vc-git-root "vc-git")
 
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t)
+;;(require 'ido)
+;;(ido-mode t)
+;;(setq ido-enable-flex-matching t)
 
+(require 'ldo-helm.el)
 
 (put 'narrow-to-defun 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
@@ -55,6 +61,8 @@
 
 
 (scroll-bar-mode -1)
+(menu-bar-mode 1)
+(tool-bar-mode -1)
 
 (defun lo-tabs-mode ()
   (setq default-tab-width 2)
@@ -112,24 +120,20 @@
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
  '(custom-safe-themes
-   (quote
-    ("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" default)))
- '(ido-mode (quote both) nil (ido))
+   '("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" default))
  '(indent-tabs-mode nil)
  '(js2-basic-offset 2)
  '(js2-mode-show-parse-errors nil)
  '(js2-mode-show-strict-warnings nil)
  '(package-selected-packages
-   (quote
-    (json-mode dumb-jump ag projectile smart-tab magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell org-roam)))
+   '(helm-swoop use-package json-mode dumb-jump ag projectile smart-tab magit magit-popup js2-mode git-commit zenburn-theme names flx exec-path-from-shell org-roam olivetti org-ref org-roam-bibtex))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(split-height-threshold 120)
  '(tabbar-mode t)
- '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(uniquify-buffer-name-style 'forward nil (uniquify))
  '(vc-follow-symlinks t)
- '(warning-minimum-level :error)
- )
+ '(warning-minimum-level :error))
 (setq require-final-newline t)
 
 ;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
@@ -198,20 +202,13 @@
 ;;   'magit-diff-hunk-header nil :foreground "black")
 (eval-after-load "diff-mode" '(custom-diff-colors))
 
-;; Org-mode & Org-roam
+(require 'ldo-org.el)
 
-(setq org-roam-directory "~/org-roam")
-(add-hook 'after-init-hook 'org-roam-mode)
+;; Set the body text width
+(setq olivetti-body-width 80)
 
-(setq org-roam-dailies-directory "daily/")
-
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-	 #'org-roam-capture--get-point
-	 "* %?"
-	 :file-name "daily/%<%Y-%m-%d>"
-	          :head "#+title: %<%Y-%m-%d>\n\n")))
-
+;; Enable Olivetti for text-related mode such as Org Mode
+(add-hook 'text-mode-hook 'olivetti-mode)
 
 ;; Keybindings
 
@@ -242,13 +239,12 @@
 (global-set-key (kbd "C-c s") 'magit-status)
 (global-set-key (kbd "C-c TAB") 'completion-at-point)
 
-;; org-mode
-;; (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c n") 'org-roam-find-file)
-(global-set-key (kbd "C-c d") 'org-roam-dailies-find-date)
-(define-key org-roam-mode-map "C-c i" `org-roam-insert)
-(define-key org-roam-mode-map "C-c t" `org-roam-tag-add)
-
 
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
