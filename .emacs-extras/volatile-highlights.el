@@ -1,14 +1,16 @@
-;;; volatile-highlights.el -- Minor mode for visual feedback on some operations.
+;;; volatile-highlights.el --- Minor mode for visual feedback on some operations. -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2001, 2010 K-taro Miyazaki, all rights reserved.
+;; Copyright (C) 2001, 2010-2016 K-talo Miyazaki, all rights reserved.
 
 ;; Author: K-talo Miyazaki <Keitaro dot Miyazaki at gmail dot com>
 ;; Created: 03 October 2001. (as utility functions in my `.emacs' file.)
 ;;          14 March   2010. (re-written as library `volatile-highlights.el')
 ;; Keywords: emulations convenience wp
-;; Revision: $Id: 94f8a6e3c508948c02040446c342b14ca029dbdf $
+;; Revision: $Id$
 ;; URL: http://www.emacswiki.org/emacs/download/volatile-highlights.el
 ;; GitHub: http://github.com/k-talo/volatile-highlights.el
+;; Version: 1.15
+;; Contributed by: Ryan Thompson and Le Wang.
 
 ;; This file is not part of GNU Emacs.
 
@@ -29,12 +31,12 @@
 ;;
 ;; Overview
 ;; ========
-;; This library provides minor mode `volatile-highlight-mode', which
+;; This library provides minor mode `volatile-highlights-mode', which
 ;; brings visual feedback to some operations by highlighting portions
 ;; relating to the operations.
 ;;
 ;; All of highlights made by this library will be removed
-;; when any new command is executed.
+;; when any new operation is executed.
 ;;
 ;;
 ;; INSTALLING
@@ -47,9 +49,12 @@
 ;;    (require 'volatile-highlights)
 ;;    (volatile-highlights-mode t)
 ;;
+;;
 ;; USING
 ;; =====
-;; To toggle volatile highlighting, type `M-x volatile-highlights-mode RET'.
+;; To toggle volatile highlighting, type `M-x volatile-highlights-mode <RET>'.
+;;
+;; While this minor mode is on, a string `VHl' will be displayed on the modeline.
 ;;
 ;; Currently, operations listed below will be highlighted While the minor mode
 ;; `volatile-highlights-mode' is on:
@@ -60,6 +65,14 @@
 ;;    - `yank' and `yank-pop':
 ;;      Volatile highlights will be put on the text inserted by `yank'
 ;;      or `yank-pop'.
+;;
+;;    - `kill-region', `kill-line', any other killing function:
+;;      Volatile highlights will be put at the positions where the
+;;      killed text used to be.
+;;
+;;    - `delete-region':
+;;      Same as `kill-region', but not as reliable since
+;;      `delete-region' is an inline function.
 ;;
 ;;    - `find-tag':
 ;;      Volatile highlights will be put on the tag name which was found
@@ -79,17 +92,93 @@
 ;;        `nonincremental-re-search-backward'
 ;;        `nonincremental-repeat-search-forward'
 ;;        `nonincremental-repeat-search-backwar'
-;;        `alien-search/nonincremental/re-search-forward'
-;;        `alien-search/nonincremental/re-search-backward'
 ;;
 ;; Highlighting support for each operations can be turned on/off individually
 ;; via customization. Also check out the customization group
 ;;
 ;;   `M-x customize-group RET volatile-highlights RET'
+;;
+;;
+;; EXAMPLE SNIPPETS FOR USING VOLATILE HIGHLIGHTS WITH OTHER PACKAGES
+;; ==================================================================
+;;
+;; - vip-mode
+;;
+;;   (vhl/define-extension 'vip 'vip-yank)
+;;   (vhl/install-extension 'vip)
+;;
+;; - evil-mode
+;;
+;;   (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before
+;;                         'evil-paste-pop 'evil-move)
+;;   (vhl/install-extension 'evil)
+;;
+;; - undo-tree
+;;
+;;   (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+;;   (vhl/install-extension 'undo-tree)
 
 
 ;;; Change Log:
-
+;;
+;; v1.15 Sun Jun 12 10:40:31 2016 JST
+;;   - Update documents, example snippets for other packages,
+;;     regarding #14.
+;;
+;; v1.14 Sun Jun 12 10:12:30 2016 JST
+;;   - Update documents, especially supporting `evil-mode',
+;;     regarding #13.
+;;   - Fixed a bug #14, an extension won't be loaded properly
+;;     when it was installed by `vhl/install-extension'.
+;;
+;; v1.13 Sat May 21 11:02:36 2016 JST
+;;   - Fixed a bug that highlighting was not working with nested volatile
+;;     highlighting aware operations like `yak-pop'.
+;;
+;; v1.12  Sun Feb 21 19:09:29 2016 JST
+;;   - Added autoload cookie.
+;;
+;; v1.11  Sun Oct  5 13:05:38 2014 JST
+;;   - Fixed an error "Symbol's function definition is void: return",
+;;     that occurs when highlight being created with `hideshow' commands.
+;;
+;; v1.10  Thu Mar 21 22:37:27 2013 JST
+;;   - Use inherit in face definition when detected.
+;;   - Suppress compiler warnings regarding to emacs/xemacs private
+;;     functions by file local variable.
+;;
+;; v1.9  Tue Mar  5 00:52:35 2013 JST
+;;   - Fixed errors in shell caused by dummy functions.
+;;
+;; v1.8  Wed Feb 15 00:08:14 2012 JST
+;;   - Added "Contributed by: " line in header.
+;;   - Added extension for hideshow.
+;;
+;; v1.7  Mon Feb 13 23:31:18 2012 JST
+;;   - Fixed a bug required features are not loaded.
+;;
+;; v1.6  Thu Feb  2 06:59:48 2012 JST
+;;   - Removed extensions for non standard features.
+;;   - Suppress compiler warning "function `vhl/.make-list-string'
+;;     defined multiple times".
+;;   - Fixed compiler error "Symbol's function definition is void:
+;;     vhl/.make-list-string".
+;;
+;;  v1.5  Tue Jan 31 22:19:04 2012 JST
+;;   - Added extension for highlighting the position where text was
+;;     killed from.
+;;   - Added extension for highlighting the position where text was
+;;     deleted from.
+;;   - Provide a macro `vhl/define-extension' for easily defining new
+;;     simple extensions with a single line of code. For usage
+;;     examples, see the definitions of the undo, yank, kill, and
+;;     delete extensions.
+;;
+;;  v1.4  Sun Jan 15 20:23:58 2012 JST
+;;   - Suppress compiler warnings regarding to emacs/xemacs private
+;;     functions.
+;;   - Fixed bugs which occurs to xemacs.
+;;
 ;;  v1.3, Sat Dec 18 16:44:14 2010 JST
 ;;   - Added extension for non-incremental search operations.
 ;;   - Fixed a bug that highlights won't be appear when
@@ -103,29 +192,30 @@
 
 ;;; Code:
 
-(defconst vhl/version "1.2")
+(defconst vhl/version "1.8")
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'easy-mmode)
   (require 'advice))
 
 (provide 'volatile-highlights)
 
- 
+
 ;;;============================================================================
 ;;;
 ;;;  Private Variables.
 ;;;
 ;;;============================================================================
 
-(defconst vhl/.xemacsp (string-match "XEmacs" emacs-version)
-  "A flag if the emacs is xemacs or not.")
+(eval-and-compile
+  (defconst vhl/.xemacsp (string-match "XEmacs" emacs-version)
+    "A flag if the emacs is xemacs or not."))
 
 (defvar vhl/.hl-lst nil
   "List of volatile highlights.")
 
- 
+
 ;;;============================================================================
 ;;;
 ;;;  Faces.
@@ -136,19 +226,35 @@
   "Visual feedback on operations."
   :group 'editing)
 
-(defface vhl/default-face
-  '((t
-     :inherit secondary-selection
-     ))
-  "Face used for volatile highlights."
-  :group 'volatile-highlights)
 
- 
+;; Borrowed from `slime.el'.
+(defun vhl/.face-inheritance-possible-p ()
+  "Return true if the :inherit face attribute is supported."
+  (assq :inherit custom-face-attributes))
+
+(defface vhl/default-face
+  (cond
+   ((or vhl/.xemacsp
+        (not (vhl/.face-inheritance-possible-p)))
+    '((((class color) (background light))
+       (:background "yellow1"))
+      (((class color) (background dark))
+       (:background "SkyBlue4"))
+      (t :inverse-video t)))
+   (t
+    '((t
+       :inherit secondary-selection
+       ))))
+    "Face used for volatile highlights."
+    :group 'volatile-highlights)
+
+
 ;;;============================================================================
 ;;;
 ;;;  Minor Mode Definition.
 ;;;
 ;;;============================================================================
+;;;###autoload
 (easy-mmode-define-minor-mode
  volatile-highlights-mode "Minor mode for visual feedback on some operations."
  :global t
@@ -158,7 +264,16 @@
      (vhl/load-extensions)
    (vhl/unload-extensions)))
 
- 
+
+(defcustom Vhl/highlight-zero-width-ranges nil
+  "If t, highlight the positions of zero-width ranges.
+
+For example, if a deletion is highlighted, then the position
+where the deleted text used to be would be highlighted."
+  :type 'boolean
+  :group 'volatile-highlights)
+
+
 ;;;============================================================================
 ;;;
 ;;;  Public Functions/Commands.
@@ -166,9 +281,9 @@
 ;;;============================================================================
 
 ;;-----------------------------------------------------------------------------
-;; (vhl/add BEG END &OPTIONAL BUF FACE) => VOID
+;; (vhl/add-range BEG END &OPTIONAL BUF FACE) => VOID
 ;;-----------------------------------------------------------------------------
-(defun vhl/add (beg end &optional buf face)
+(defun vhl/add-range (beg end &optional buf face)
   "Add a volatile highlight to the buffer `BUF' at the position
 specified by `BEG' and `END' using the face `FACE'.
 
@@ -183,6 +298,21 @@ be used as the value."
 	(setq vhl/.hl-lst
 		  (cons hl vhl/.hl-lst))
 	(add-hook 'pre-command-hook 'vhl/clear-all)))
+(define-obsolete-function-alias 'vhl/add 'vhl/add-range "1.5")
+
+;;-----------------------------------------------------------------------------
+;; (vhl/add-position POS &OPTIONAL BUF FACE) => VOID
+;;-----------------------------------------------------------------------------
+(defun vhl/add-position (pos &rest other-args)
+  "Highlight buffer position POS as a change.
+
+If Vhl/highlight-zero-width-ranges is nil, do nothing.
+
+Optional args are the same as `vhl/add-range'."
+  (when (and Vhl/highlight-zero-width-ranges (not (zerop (buffer-size))))
+    (when (> pos (buffer-size))
+        (setq pos (- pos 1)))
+    (apply 'vhl/add-range pos (+ pos 1) other-args)))
 
 ;;-----------------------------------------------------------------------------
 ;; (vhl/clear-all) => VOID
@@ -204,7 +334,7 @@ be used as the value."
   (interactive)
   (vhl/.force-clear-all-hl))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;;  Private Functions.
@@ -223,7 +353,7 @@ be used as the value."
 	  (setq hl (make-extent beg end buf))
 	  (set-extent-face hl face)
 	  (highlight-extent hl t)
-	  (set-extent-property 'volatile-highlights t))
+	  (set-extent-property hl 'volatile-highlights t))
 	 (t
 	  ;; GNU Emacs
 	  (setq hl (make-overlay beg end buf))
@@ -254,12 +384,12 @@ be used as the value."
   "Force clear all volatile highlights in current buffer."
   (cond
    ;; XEmacs (not tested!)
-   ((fboundp 'map-extents)
+   (vhl/.xemacsp
       (map-extents (lambda (hl maparg)
                      (and (extent-property hl 'volatile-highlights)
 						  (vhl/.clear-hl hl)))))
    ;; GNU Emacs
-   ((fboundp 'overlays-in)
+   (t
 	(save-restriction
 	  (widen)
 	  (mapcar (lambda (hl)
@@ -267,7 +397,7 @@ be used as the value."
 					 (vhl/.clear-hl hl)))
 			  (overlays-in (point-min) (point-max)))))))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;;  Functions to manage extensions.
@@ -279,7 +409,7 @@ be used as the value."
   (let ((fn-on  (intern (format "vhl/ext/%s/on" sym)))
         (fn-off (intern (format "vhl/ext/%s/off" sym)))
         (cust-name (intern (format "vhl/use-%s-extension-p" sym))))
-    (pushnew sym vhl/.installed-extensions)
+    (cl-pushnew sym vhl/.installed-extensions)
     (eval `(defcustom ,cust-name t
              ,(format "A flag if highlighting support for `%s' is on or not." sym)
              :type 'boolean
@@ -288,8 +418,8 @@ be used as the value."
                     (set-default sym-to-set val)
                     (if val
                         (when volatile-highlights-mode
-                          (vhl/load-extension sym-to-set))
-                      (vhl/unload-extension sym-to-set)))))))
+                          (vhl/load-extension (quote ,sym)))
+                      (vhl/unload-extension (quote ,sym))))))))
 
 (defun vhl/load-extension (sym)
   (let ((fn-on  (intern (format "vhl/ext/%s/on" sym)))
@@ -314,12 +444,36 @@ be used as the value."
   (dolist (sym vhl/.installed-extensions)
     (vhl/unload-extension sym)))
 
- 
+
 ;;;============================================================================
 ;;;
 ;;;  Utility functions/macros for extensions.
 ;;;
 ;;;============================================================================
+(defvar vhl/.after-change-hook-depth 0)
+
+(defun vhl/.push-to-after-change-hook (fn-name)
+  ;; Debug
+  ;; (if (zerop vhl/.after-change-hook-depth)
+  ;;     (message "vlh: push: %s" fn-name)
+  ;;   (message "vlh: skip push: %s" fn-name))
+  (when (zerop vhl/.after-change-hook-depth)
+    (add-hook 'after-change-functions
+              'vhl/.make-vhl-on-change))
+  (setq vhl/.after-change-hook-depth
+        (1+ vhl/.after-change-hook-depth)))
+
+(defun vhl/.pop-from-after-change-hook (fn-name)
+  (setq vhl/.after-change-hook-depth
+        (1- vhl/.after-change-hook-depth))
+  ;; Debug
+  ;; (if (zerop vhl/.after-change-hook-depth)
+  ;;     (message "vlh: pop: %s" fn-name)
+  ;;   (message "vlh: skip pop: %s" fn-name))
+  (when (zerop vhl/.after-change-hook-depth)
+    (remove-hook 'after-change-functions
+                 'vhl/.make-vhl-on-change)))
+
 (defun vhl/advice-defined-p (fn-name class ad-name)
   (and (ad-is-advised fn-name)
        (assq ad-name
@@ -332,8 +486,11 @@ be used as the value."
 
 (defun vhl/.make-vhl-on-change (beg end len-removed)
   (let ((insert-p (zerop len-removed)))
-    (when insert-p
-      (vhl/add beg end))))
+    (if insert-p
+        ;; Highlight the insertion
+        (vhl/add-range beg end)
+      ;; Highlight the position of the deletion
+      (vhl/add-position beg))))
 
 (defmacro vhl/give-advice-to-make-vhl-on-changes (fn-name)
   (let* ((ad-name (intern (concat "vhl/make-vhl-on-"
@@ -344,12 +501,10 @@ be used as the value."
        (defadvice ,fn-name (around
                               ,ad-name
                               (&rest args))
-         (add-hook 'after-change-functions
-                   'vhl/.make-vhl-on-change)
+         (vhl/.push-to-after-change-hook (quote ,fn-name))
          (unwind-protect
              ad-do-it
-           (remove-hook 'after-change-functions
-                        'vhl/.make-vhl-on-change)))
+           (vhl/.pop-from-after-change-hook (quote ,fn-name))))
        ;; Enable advice.
        (ad-enable-advice (quote ,fn-name) 'around (quote ,ad-name))
        (ad-activate (quote ,fn-name)))))
@@ -359,54 +514,128 @@ be used as the value."
                                  (format "%s" fn-name)))))
     `(vhl/disable-advice-if-defined (quote ,fn-name) 'around (quote ,ad-name))))
 
- 
+(defun vhl/require-noerror (feature &optional filename)
+  (condition-case c
+      (require feature)
+    (file-error nil)))
+
+(eval-and-compile
+;; Utility function by Ryan Thompson.
+(defun vhl/.make-list-string (items)
+  "Makes an English-style list from a list of strings.
+
+Converts a list of strings into a string that lists the items
+separated by commas, as well as the word `and' before the last
+item. In other words, returns a string of the way those items
+would be listed in english.
+
+This is included as a private support function for generating
+lists of symbols to be included docstrings of auto-generated
+extensions."
+  (cl-assert (listp items))
+  (cond ((null items)
+         ;; Zero items
+         "")
+        ((null (cdr items))
+         ;; One item
+         (cl-assert (stringp (cl-first items)))
+         (format "%s" (cl-first items)))
+        ((null (cddr items))
+         ;; Two items
+         (cl-assert (stringp (cl-first items)))
+         (cl-assert (stringp (cl-second items)))
+         (apply 'format "%s and %s" items))
+        ((null (cdddr items))
+         ;; Three items
+         (cl-assert (stringp (cl-first items)))
+         (cl-assert (stringp (cl-second items)))
+         (cl-assert (stringp (cl-third items)))
+         (apply 'format "%s, %s, and %s" items))
+        (t
+         ;; 4 or more items
+         (format "%s, %s" (cl-first items) (vhl/.make-list-string (cl-rest items)))))))
+
+;; The following makes it trivial to define simple vhl extensions
+(defmacro vhl/define-extension (name &rest functions)
+  "Define a VHL extension called NAME that applies standard VHL
+  advice to each of FUNCTIONS."
+  (cl-assert (cl-first functions))
+  (let* ((name-string (symbol-name (eval name)))
+         (function-list-string (vhl/.make-list-string
+                                (mapcar (lambda (f) (format "`%s'" (symbol-name (eval f))))
+                                        functions)))
+         (on-function-name (intern (format "vhl/ext/%s/on" name-string)))
+         (on-body-form (cons
+                        'progn
+                        (mapcar (lambda (f)
+                                  `(vhl/give-advice-to-make-vhl-on-changes ,(eval f)))
+                                functions)))
+         (on-doc-string (format "Turn on volatile highlighting for %s." function-list-string))
+
+         (off-function-name (intern (format "vhl/ext/%s/off" name-string)))
+         (off-body-form (cons
+                         'progn
+                         (mapcar (lambda (f)
+                                   `(vhl/cancel-advice-to-make-vhl-on-changes ,(eval f)))
+                                 functions)))
+         (off-doc-string (format "Turn off volatile highlighting for %s." function-list-string)))
+    `(progn
+       (defun ,on-function-name ()
+         ,on-doc-string
+         (interactive)
+         ,on-body-form)
+       (defun ,off-function-name ()
+         ,off-doc-string
+         (interactive)
+         ,off-body-form)
+       nil)))
+
+
 ;;;============================================================================
 ;;;
 ;;;  Extensions.
 ;;;
 ;;;============================================================================
- 
+
 ;;-----------------------------------------------------------------------------
 ;; Extension for supporting undo.
 ;;   -- Put volatile highlights on the text inserted by `undo'.
 ;;      (and may be `redo'...)
 ;;-----------------------------------------------------------------------------
-(defun vhl/ext/undo/on ()
-  "Turn on volatile highlighting for `undo'."
-  (interactive)
-  
-  (vhl/give-advice-to-make-vhl-on-changes primitive-undo))
 
-(defun vhl/ext/undo/off ()
-  "Turn off volatile highlighting for `undo'."
-  (interactive)
-
-  (vhl/cancel-advice-to-make-vhl-on-changes primitive-undo))
-
+(vhl/define-extension 'undo 'primitive-undo)
 (vhl/install-extension 'undo)
 
- 
+
 ;;-----------------------------------------------------------------------------
 ;; Extension for supporting yank/yank-pop.
 ;;   -- Put volatile highlights on the text inserted by `yank' or `yank-pop'.
 ;;-----------------------------------------------------------------------------
-(defun vhl/ext/yank/on ()
-  "Turn on volatile highlighting for `yank' and `yank-pop'."
-  (interactive)
 
-  (vhl/give-advice-to-make-vhl-on-changes yank)
-  (vhl/give-advice-to-make-vhl-on-changes yank-pop))
-
-(defun vhl/ext/yank/off ()
-  "Turn off volatile highlighting for `yank' and `yank-pop'."
-  (interactive)
-
-  (vhl/cancel-advice-to-make-vhl-on-changes yank)
-  (vhl/cancel-advice-to-make-vhl-on-changes yank-pop))
-
+(vhl/define-extension 'yank 'yank 'yank-pop)
 (vhl/install-extension 'yank)
 
- 
+;;-----------------------------------------------------------------------------
+;; Extension for supporting kill.
+;;   -- Put volatile highlights on the positions where killed text
+;;      used to be.
+;;-----------------------------------------------------------------------------
+
+(vhl/define-extension 'kill 'kill-region)
+(vhl/install-extension 'kill)
+
+;;-----------------------------------------------------------------------------
+;; Extension for supporting `delete-region'.
+;;   -- Put volatile highlights on the positions where deleted text
+;;      used to be. This is not so reliable since `delete-region' is
+;;      an inline function and is pre-compiled sans advice into many
+;;      other deletion functions.
+;;-----------------------------------------------------------------------------
+
+(vhl/define-extension 'delete 'delete-region)
+(vhl/install-extension 'delete)
+
+
 ;;-----------------------------------------------------------------------------
 ;; Extension for supporting etags.
 ;;   -- Put volatile highlights on the tag name which was found by `find-tag'.
@@ -421,7 +650,7 @@ be used as the value."
           (len (length tagname)))
       (save-excursion
         (search-forward tagname)
-        (vhl/add (- (point) len) (point)))))
+        (vhl/add-range (- (point) len) (point)))))
   (ad-activate 'find-tag))
 
 (defun vhl/ext/etags/off ()
@@ -432,7 +661,7 @@ be used as the value."
 
 (vhl/install-extension 'etags)
 
- 
+
 ;;-----------------------------------------------------------------------------
 ;; Extension for supporting occur.
 ;;   -- Put volatile highlights on occurrence which is selected by
@@ -441,8 +670,8 @@ be used as the value."
 (defun vhl/ext/occur/on ()
   "Turn on volatile highlighting for `occur'."
   (interactive)
-  
-  (lexical-let ((*occur-str* nil)) ;; Text in current line.
+
+  (let ((*occur-str* nil)) ;; Text in current line.
     (defun vhl/ext/occur/.pre-hook-fn ()
       (save-excursion
         (let* ((bol (progn (beginning-of-line) (point)))
@@ -482,24 +711,23 @@ be used as the value."
                   ;; When the occurrence is in folded line,
                   ;; put highlight over whole line which
                   ;; contains folded part.
-                  (mapcar (lambda (ov)
-                            (when (overlay-get ov 'invisible)
-                              (message "INVISIBLE: %s" ov)
-                              (save-excursion
-                                (goto-char (overlay-start ov))
-                                (beginning-of-line)
-                                (setq pt-beg (min pt-beg (point)))
-                                (goto-char (overlay-end ov))
-                                (end-of-line)
-                                (setq pt-end (max pt-end (point))))))
-                          (overlays-at pt-beg))
-                  
-                  (vhl/add pt-beg
-                           pt-end
-                           nil
-                           list-matching-lines-face))))))))
-    
-      
+                  (dolist (ov (overlays-at pt-beg))
+                    (when (overlay-get ov 'invisible)
+                      ;;(message "INVISIBLE: %s" ov)
+                      (save-excursion
+                        (goto-char (overlay-start ov))
+                        (beginning-of-line)
+                        (setq pt-beg (min pt-beg (point)))
+                        (goto-char (overlay-end ov))
+                        (end-of-line)
+                        (setq pt-end (max pt-end (point))))))
+
+                  (vhl/add-range pt-beg
+                                 pt-end
+                                 nil
+                                 list-matching-lines-face))))))))
+
+
     (defadvice occur-mode-goto-occurrence (before vhl/ext/occur/pre-hook (&optional event))
       (vhl/ext/occur/.pre-hook-fn))
     (defadvice occur-mode-goto-occurrence (after vhl/ext/occur/post-hook (&optional event))
@@ -514,7 +742,7 @@ be used as the value."
       (vhl/ext/occur/.pre-hook-fn))
     (defadvice occur-mode-goto-occurrence-other-window (after vhl/ext/occur/post-hook ())
       (vhl/ext/occur/.post-hook-fn))
-  
+
     (ad-activate 'occur-mode-goto-occurrence)
     (ad-activate 'occur-mode-display-occurrence)
     (ad-activate 'occur-mode-goto-occurrence-other-window)))
@@ -540,7 +768,7 @@ be used as the value."
 
 (vhl/install-extension 'occur)
 
- 
+
 ;;-----------------------------------------------------------------------------
 ;; Extension for non-incremental search operations.
 ;;   -- Put volatile highlights on the text found by non-incremental search
@@ -554,7 +782,7 @@ be used as the value."
                                        fn))
                       (&rest args))
         (when ad-return-value
-          (vhl/add (match-beginning 0) (match-end 0) nil 'match)))
+          (vhl/add-range (match-beginning 0) (match-end 0) nil 'match)))
       (ad-activate (quote ,fn))))
 
 (defmacro vhl/ext/nonincremental-search/.disable-advice-to-vhl (fn)
@@ -566,31 +794,78 @@ be used as the value."
 (defun vhl/ext/nonincremental-search/on ()
   "Turn on volatile highlighting for non-incremental search operations."
   (interactive)
-  (when (require 'menu-bar nil t)
+  (when (vhl/require-noerror 'menu-bar nil)
     (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-search-forward)
     (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-search-backward)
     (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-re-search-forward)
     (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-re-search-backward)
     (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-repeat-search-forward)
-    (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-repeat-search-backward))
-  (when (require 'alien-search nil t)
-    (vhl/ext/nonincremental-search/.advice-to-vhl alien-search/non-incremental/search-forward)
-    (vhl/ext/nonincremental-search/.advice-to-vhl alien-search/non-incremental/search-backward)))
+    (vhl/ext/nonincremental-search/.advice-to-vhl nonincremental-repeat-search-backward)))
 
 (defun vhl/ext/nonincremental-search/off ()
   "Turn off volatile highlighting for  non-incremental search operations."
   (interactive)
-  (when (require 'menu-bar nil t)
+  (when (vhl/require-noerror 'menu-bar nil)
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-search-forward)
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-search-backward)
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-re-search-forward)
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-re-search-backward)
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-repeat-search-forward)
-    (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-repeat-search-backward))
-  (when (require 'alien-search nil t)
-    (vhl/ext/nonincremental-search/.advice-to-vhl alien-search/non-incremental/search-forward)
-    (vhl/ext/nonincremental-search/.advice-to-vhl alien-search/non-incremental/search-backward)))
+    (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-repeat-search-backward)))
 
 (vhl/install-extension 'nonincremental-search)
+
+
+;;-----------------------------------------------------------------------------
+;; Extension for hideshow.
+;;   -- Put volatile highlights on the text blocks which are shown/hidden
+;;      by hideshow.
+;;-----------------------------------------------------------------------------
+
+(defun vhl/ext/hideshow/.activate ()
+  (defadvice hs-show-block (around vhl/ext/hideshow/vhl/around-hook (&optional end))
+    (let* ((bol (save-excursion (progn (beginning-of-line) (point))))
+           (eol (save-excursion (progn (end-of-line) (point))))
+           (ov-folded (car (delq nil
+                                 (mapcar #'(lambda (ov)
+                                             (and (overlay-get ov 'hs)
+                                                  ov))
+                                         (overlays-in bol (1+ eol))))))
+           (boov (and ov-folded (overlay-start ov-folded)))
+           (eoov (and ov-folded (overlay-end ov-folded))))
+
+      ad-do-it
+
+      (when (and boov eoov)
+        (vhl/add-range boov eoov))))
+  (ad-activate 'hs-show-block))
+
+(defun vhl/ext/hideshow/on ()
+  "Turn on volatile highlighting for `hideshow'."
+  (interactive)
+
+  (cond
+   ((featurep 'hideshow)
+    (vhl/ext/hideshow/.activate))
+   (t
+    (eval-after-load "hideshow" '(vhl/ext/hideshow/.activate)))))
+
+(defun vhl/ext/hideshow/off ()
+  (vhl/disable-advice-if-defined 'hs-show-block
+                                 'after
+                                 'vhl/ext/hideshow/vhl/around-hook))
+
+(vhl/install-extension 'hideshow)
+
+
+;;;============================================================================
+;;;
+;;;  Suppress compiler warnings regarding to emacs/xemacs private functions.
+;;;
+;;;============================================================================
+
+;; Local variables:
+;; byte-compile-warnings: (not unresolved)
+;; End:
 
 ;;; volatile-highlights.el ends here

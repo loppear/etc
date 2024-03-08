@@ -9,7 +9,6 @@
 (global-auto-revert-mode)
 
 (add-to-list 'load-path "~/.emacs-extras")
-(add-to-list 'load-path "~/lib/expand-region.el")
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 ;;                         ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -18,78 +17,16 @@
 
 (push '(font-backend xft x) default-frame-alist)
 
-(defun zenburn-init ()
-  (load-theme 'zenburn)
-)
-(add-hook 'after-init-hook 'zenburn-init)
 
-;;(require 'diff-mode-)
 (autoload 'vc-git-root "vc-git")
 
-(require 'ipython)
-(setq py-python-command-args '("--pylab"))
-
-;;(require 'show-wspace)
-
-;;(require 'smart-tab)
-;;(global-smart-tab-mode 1)
-
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t)
-
-
-(put 'narrow-to-defun 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
 
 (electric-pair-mode)
-(dumb-jump-mode)
-
-(require 'ibuffer)
-(setq ibuffer-saved-filter-groups
-  (quote (("default"
-            ("Projects"
-              (filename . "/projects/"))
-            ("Lib"
-              (filename . "/lib/"))
-            ("Misc Programming"
-              (or
-                (mode . c-mode)
-                (mode . perl-mode)
-                (mode . python-mode)
-                (mode . emacs-lisp-mode)
-                ))
-            ("Notes"
-              (mode . rst-mode))
-           ))))
-
-(add-hook 'ibuffer-mode-hook
-  (lambda ()
-    (ibuffer-switch-to-saved-filter-groups "default")))
 
 
 (scroll-bar-mode -1)
+(blink-cursor-mode 0)
 
-;; Node
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(javascript-jshint)))
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(json-jsonlist)))
-(flycheck-add-mode 'javascript-eslint 'web-mode)
-(setq-default flycheck-temp-prefix ".flycheck")
-
-
-(require 'flow-minor-mode)
-(add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
 
 ; Django templates
 ;(load "~/lib/nxhtml/autostart.el")
@@ -135,7 +72,6 @@
 (require 'volatile-highlights)
 (volatile-highlights-mode t)
 
-(require 'expand-region)
 
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "9:50am")
@@ -160,33 +96,6 @@
 (add-hook 'rst-adjust-hook 'rst-toc-update)
 
 (require 'linum)
-
-;;(require 'nose)
-;;(setq nose-use-verbose nil)
-;;(add-to-list 'nose-project-names "../bin/nosetests")
-;;(add-to-list 'nose-project-names "../bin/test")
-;;(add-to-list 'nose-project-names "../../bin/test")
-;;(add-to-list 'nose-project-root-files "manage.py")
-;;(add-to-list 'nose-project-root-files "build.xml")
-;;(add-hook 'python-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            (local-set-key "\C-cr" 'pycov2-refresh)
-;;            ))
-;;(add-hook 'nxhtml-mumamo-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            ))
-;;(add-hook 'coffee-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-ca" 'nosetests-all)
-;;            (local-set-key "\C-cm" 'nosetests-module)
-;;            (local-set-key "\C-c." 'nosetests-one)
-;;            ))
 
 
 (require 'ansi-color)
@@ -217,8 +126,6 @@
 
 ;; Disable tool-bar
 (tool-bar-mode -1)
-
-(setq org-mobile-directory "/media/sf_luke/Dropbox/MobileOrg")
 
 (setq auto-save-file-name-transforms
           `((".*" ,temporary-file-directory t)))
@@ -280,14 +187,6 @@
  '(tabbar-default ((((class color grayscale) (background dark)) (:inherit variable-pitch :background "gray50" :foreground "white" :height 0.9))))
  '(tabbar-selected ((t (:inherit tabbar-default :foreground "white" :box (:line-width 1 :color "white" :style pressed-button))))))
 
-;; h/t Augie
-;;(add-hook 'python-mode-hook
-;;          (lambda()
-;;            (add-hook 'write-file-functions
-;;                      '(lambda ()
-;;                         (whitespace-cleanup)
-;;                         nil))
-;;          ))
 (setq require-final-newline t)
 
 ;; http://stackoverflow.com/questions/730751/hiding-m-in-emacs
@@ -460,5 +359,5 @@
 (global-set-key (kbd "<C-return>") 'org-insert-heading-respect-content)
 
 
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
+;(projectile-mode +1)
+;(define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
